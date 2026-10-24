@@ -30,7 +30,8 @@
   }
 
   function loadPhotos(root) {
-    var els = $$(".photo[data-photo]", root);
+    // Pozele din header sunt încărcate separat, în initHero
+    var els = $$(".photo[data-photo]", root).filter(function (el) { return !el.classList.contains("hero__slide"); });
     if (!("IntersectionObserver" in window)) { els.forEach(loadPhoto); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -329,8 +330,10 @@
     }).join("");
 
     var els = $$(".hero__slide", wrap), btns = $$("button", dots), cur = 0, timer = null;
-    // Încarcă toate pozele din header de la început, ca trecerea să fie fluidă
-    els.forEach(loadPhoto);
+    // Prima poză imediat; restul după ce s-a încărcat pagina, ca să nu întârzie afișarea
+    loadPhoto(els[0]);
+    function loadRest() { els.slice(1).forEach(loadPhoto); }
+    if (document.readyState === "complete") loadRest(); else window.addEventListener("load", loadRest);
 
     function go(i) {
       els[cur].classList.remove("is-active"); btns[cur].classList.remove("is-active"); btns[cur].setAttribute("aria-selected", "false");

@@ -41,6 +41,7 @@ body {
   color: var(--ink);
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }
 body.no-scroll { overflow: hidden; }
@@ -73,7 +74,7 @@ p { margin: 0 0 1em; }
   cursor: pointer;
   transition: transform .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
-.btn:hover { transform: translateY(-2px); }
+@media (hover: hover) { .btn:hover { transform: translateY(-2px); } }
 .btn--primary { background: var(--tomato); color: var(--white); box-shadow: 0 10px 24px -10px rgba(214, 64, 43, .7); }
 .btn--primary:hover { background: var(--tomato-dark); }
 .btn--ghost { border-color: rgba(255, 255, 255, .7); color: var(--white); background: rgba(255, 255, 255, .08); backdrop-filter: blur(4px); }
@@ -202,9 +203,11 @@ p { margin: 0 0 1em; }
 @keyframes slowzoom { from { transform: scale(1.1); } to { transform: scale(1); } }
 .hero__dots { position: absolute; right: max(16px, calc((100% - 1200px) / 2)); bottom: 40px; display: flex; gap: 8px; z-index: 1; }
 .hero__dots button {
+  position: relative;
   width: 34px; height: 6px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
   background: rgba(255, 255, 255, .35); transition: background-color .3s ease, width .3s ease;
 }
+.hero__dots button::after { content: ""; position: absolute; inset: -18px -4px; }
 .hero__dots button:hover { background: rgba(255, 255, 255, .6); }
 .hero__dots button.is-active { width: 54px; background: var(--mustard); }
 .hero__overlay {
@@ -295,8 +298,10 @@ p { margin: 0 0 1em; }
   transition: transform .3s ease, box-shadow .3s ease;
   animation: fadeUp .5s ease both; animation-delay: calc(var(--i) * 40ms);
 }
-.product:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.product:hover .photo::before { transform: scale(1.15) rotate(-6deg); }
+@media (hover: hover) {
+  .product:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .product:hover .photo::before { transform: scale(1.15) rotate(-6deg); }
+    }
 .product__media { aspect-ratio: 4 / 3; }
 .product[data-cat="legume"]   .photo { --ph-a: #ffd3c4; --ph-b: #f08a6c; }
 .product[data-cat="fructe"]   .photo { --ph-a: #ffe7a8; --ph-b: #f5b356; }
@@ -330,7 +335,6 @@ p { margin: 0 0 1em; }
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .brand::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--brand); }
-.brand:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
 .brand__logo {
   position: relative; display: grid; place-items: center;
   width: 72px; height: 72px; border-radius: 20px; margin-bottom: 18px;
@@ -339,6 +343,7 @@ p { margin: 0 0 1em; }
   overflow: hidden;
 }
 .brand__logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--white); padding: 8px; }
+.brand__body { display: flex; flex-direction: column; flex: 1; }
 .brand__type { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
 .brand h3 { margin: .25em 0 .4em; font-size: 1.25rem; }
 .brand p { color: var(--muted); font-size: .94rem; flex: 1; }
@@ -370,7 +375,6 @@ p { margin: 0 0 1em; }
 .gallery__item:nth-child(3n+2) .photo { --ph-a: #e5704f; --ph-b: #a82d1c; }
 .gallery__item:nth-child(3n)   .photo { --ph-a: #f0c266; --ph-b: #c4862a; }
 .gallery__photo::after { display: none; }
-.gallery__item:hover .gallery__photo { transform: scale(1.06); }
 .gallery__caption {
   position: absolute; inset: auto 0 0; padding: 40px 16px 14px;
   font-weight: 600; font-size: .95rem;
@@ -456,7 +460,7 @@ p { margin: 0 0 1em; }
 .footer__brand p { margin: 1rem 0 0; max-width: 34ch; opacity: .75; }
 .logo--light { color: var(--white); }
 .footer__nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
-.footer__nav a { text-decoration: none; opacity: .8; }
+.footer__nav a { text-decoration: none; opacity: .8; padding: 6px 0; }
 .footer__nav a:hover { opacity: 1; color: var(--mustard); }
 .footer__bottom { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; padding-top: 24px; font-size: .85rem; opacity: .65; }
 .footer__bottom a { text-decoration: none; }
@@ -476,6 +480,14 @@ p { margin: 0 0 1em; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------- Ecrane tactile: ținte mai mari pentru deget ---------- */
+@media (pointer: coarse) {
+  .chip { min-height: 44px; }
+  .socials a { padding: .8em 1.2em; }
+  .info-list a { display: inline-block; padding: 8px 0; }
+  .footer__bottom a, .footer__maker a, .footer__credits summary { display: inline-block; padding: 8px 0; }
 }
 
 /* ---------- Responsive ---------- */
@@ -516,7 +528,8 @@ p { margin: 0 0 1em; }
   .chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px 6px; scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
   .chip { flex: none; }
-  .search { flex-basis: auto; }
+  .search { flex: none; width: 100%; }
+  .search input { min-width: 0; }
   .products { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .product__body { padding: 12px 12px 14px; }
   .product__body h3 { font-size: 1rem; }
@@ -524,6 +537,17 @@ p { margin: 0 0 1em; }
   .gallery { grid-auto-rows: 150px; gap: 10px; }
   .gallery__item--wide { grid-column: span 2; }
   .form__row { grid-template-columns: 1fr; }
+  .form input, .form select, .form textarea { font-size: 16px; } /* evită zoom-ul automat pe iPhone */
+  .brands { gap: 12px; }
+  .brand { flex-direction: row; align-items: flex-start; gap: 14px; padding: 18px 16px; }
+  .brand__logo { flex: none; width: 56px; height: 56px; margin: 0; border-radius: 16px; font-size: 1.2rem; }
+  .brand h3 { font-size: 1.08rem; margin: .15em 0 .3em; }
+  .brand p { font-size: .88rem; margin-bottom: .7em; }
+  .cta-band { margin-top: 32px; }
+  .cta-band .btn { width: 100%; }
+  .visit__map, .visit__map iframe { min-height: 320px; }
+  .section__head { margin-bottom: 32px; }
+  .hours th, .hours td { padding: .8em 1em; }
   .about__badge { width: 100px; height: 100px; }
   .about__badge span { font-size: .62rem; }
   .about__badge strong { font-size: 1.7rem; }
