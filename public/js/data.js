@@ -24,7 +24,7 @@ window.SITE = {
   },
 
   // Firma care a realizat site-ul (apare în subsol). Lasă name gol ca să nu apară.
-  maker: { name: "", url: "" },
+  maker: { name: "RDN Network Data", url: "https://rdndata.ro" },
 
   // Pozele din header (se schimbă automat). Recomandat: 1600–1920 px lățime.
   heroSlides: [

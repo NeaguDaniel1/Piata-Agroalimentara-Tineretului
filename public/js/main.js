@@ -356,7 +356,7 @@
     var m = S.maker;
     if (m && m.name) {
       var el = $("#footerMaker");
-      el.innerHTML = 'Site realizat de ' + (m.url ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.name) + '</a>' : esc(m.name));
+      el.innerHTML = 'Website realizat de ' + (m.url ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.name) + '</a>' : esc(m.name));
       el.hidden = false;
     }
     var credits = window.PHOTO_CREDITS || [];
