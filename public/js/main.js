@@ -316,10 +316,65 @@
     });
   }
 
+  /* ---------- Header cu poze care se schimbă ---------- */
+  function initHero() {
+    var slides = S.heroSlides || [];
+    var wrap = $("#heroSlides"), dots = $("#heroDots");
+    wrap.innerHTML = slides.map(function (h, i) {
+      return '<div class="hero__slide photo' + (i === 0 ? " is-active" : "") + '" ' + photoAttrs(h.img, h.emoji, h.label) + '></div>';
+    }).join("");
+    if (slides.length < 2) return;
+    dots.innerHTML = slides.map(function (h, i) {
+      return '<button role="tab" aria-label="Poza ' + (i + 1) + '" aria-selected="' + (i === 0) + '"' + (i === 0 ? ' class="is-active"' : "") + '></button>';
+    }).join("");
+
+    var els = $$(".hero__slide", wrap), btns = $$("button", dots), cur = 0, timer = null;
+    // Încarcă toate pozele din header de la început, ca trecerea să fie fluidă
+    els.forEach(loadPhoto);
+
+    function go(i) {
+      els[cur].classList.remove("is-active"); btns[cur].classList.remove("is-active"); btns[cur].setAttribute("aria-selected", "false");
+      cur = (i + els.length) % els.length;
+      els[cur].classList.add("is-active"); btns[cur].classList.add("is-active"); btns[cur].setAttribute("aria-selected", "true");
+    }
+    function start() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      stop(); timer = setInterval(function () { go(cur + 1); }, 6000);
+    }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    dots.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (b) { go(btns.indexOf(b)); start(); }
+    });
+    document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
+    start();
+  }
+
+  /* ---------- Subsol: realizator site + credite foto ---------- */
+  function initFooter() {
+    var m = S.maker;
+    if (m && m.name) {
+      var el = $("#footerMaker");
+      el.innerHTML = 'Site realizat de ' + (m.url ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.name) + '</a>' : esc(m.name));
+      el.hidden = false;
+    }
+    var credits = window.PHOTO_CREDITS || [];
+    if (credits.length) {
+      $("#photoCredits ul").innerHTML = credits.map(function (c) {
+        return '<li><a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.title) + '</a> — ' +
+          esc(c.author || "autor necunoscut") + ', ' + esc(c.license) + '</li>';
+      }).join("");
+      $("#photoCredits").hidden = false;
+    }
+  }
+
   /* ---------- Start ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     $("#year").textContent = new Date().getFullYear();
     initNav();
+    initHero();
+    initFooter();
     initProducts();
     initBrands();
     initGallery();

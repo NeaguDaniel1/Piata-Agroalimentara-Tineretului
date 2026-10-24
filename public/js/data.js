@@ -11,17 +11,29 @@ window.SITE = {
   contact: {
     phone: "+40 700 000 000",
     email: "contact@piatatineretului.ro",
-    address: "Piața Agroalimentară Tineretului, Sector 4, București",
-    transport: "Metrou M2 — stația Tineretului (5 min. pe jos). Tramvai și autobuz în apropiere.",
+    address: "Str. Tineretului nr. 30, sat Dudu, comuna Chiajna, județul Ilfov",
+    transport: "Acces ușor din București (zona Militari) și din toată comuna Chiajna.",
     parking: "Parcare proprie gratuită pentru clienți, 2 ore.",
     // Textul folosit pentru căutarea pe Google Maps
-    mapQuery: "Piata Tineretului, Bucuresti",
+    mapQuery: "Strada Tineretului 30, Dudu, Chiajna, Ilfov",
     socials: [
       { name: "Facebook", url: "https://facebook.com/" },
       { name: "Instagram", url: "https://instagram.com/" },
       { name: "TikTok", url: "https://tiktok.com/" }
     ]
   },
+
+  // Firma care a realizat site-ul (apare în subsol). Lasă name gol ca să nu apară.
+  maker: { name: "", url: "" },
+
+  // Pozele din header (se schimbă automat). Recomandat: 1600–1920 px lățime.
+  heroSlides: [
+    { img: "images/galerie/hero-1.jpg", emoji: "🧺", label: "Header — poza 1" },
+    { img: "images/galerie/hero-2.jpg", emoji: "🍅", label: "Header — poza 2" },
+    { img: "images/galerie/hero-3.jpg", emoji: "🍎", label: "Header — poza 3" },
+    { img: "images/galerie/hero-4.jpg", emoji: "🧀", label: "Header — poza 4" },
+    { img: "images/galerie/hero-5.jpg", emoji: "🥕", label: "Header — poza 5" }
+  ],
 
   // Program: 0 = Duminică, 1 = Luni, ... 6 = Sâmbătă. null = închis.
   hours: [

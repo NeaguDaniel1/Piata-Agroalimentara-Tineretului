@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Piața Agroalimentară Tineretului — Produse proaspete de la producători locali</title>
-  <meta name="description" content="Piața Agroalimentară Tineretului: legume, fructe, lactate, carne, pâine și bunătăți de la producători locali. Program, producători, galerie foto și contact.">
+  <meta name="description" content="Piața Agroalimentară Tineretului din Dudu, Chiajna (Str. Tineretului nr. 30): legume, fructe, lactate, carne, pâine și bunătăți de la producători locali. Program, producători, galerie foto și contact.">
   <meta name="theme-color" content="#1f4d2b">
   <meta property="og:title" content="Piața Agroalimentară Tineretului">
   <meta property="og:description" content="Produse proaspete, direct de la producători locali.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="images/galerie/hero.jpg">
+  <meta property="og:image" content="images/galerie/hero-1.jpg">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍅</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,13 +52,14 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero" id="acasa">
-      <div class="hero__media photo" data-photo="images/galerie/hero.jpg" data-emoji="🧺" data-label="Poză principală (hero)"></div>
+      <div class="hero__slides" id="heroSlides" aria-hidden="true"></div>
       <div class="hero__overlay"></div>
+      <div class="hero__dots" id="heroDots" role="tablist" aria-label="Alege poza din header"></div>
 
       <div class="container hero__content">
         <span class="eyebrow eyebrow--light">Proaspăt în fiecare dimineață</span>
         <h1>Gustul adevărat al pieței, <em>direct de la producători.</em></h1>
-        <p class="hero__lead">Legume din grădină, fructe din livadă, brânzeturi de la stână, pâine pe vatră și zeci de branduri locale — toate sub același acoperiș, în inima cartierului Tineretului.</p>
+        <p class="hero__lead">Legume din grădină, fructe din livadă, brânzeturi de la stână, pâine pe vatră și zeci de branduri locale — toate sub același acoperiș, pe strada Tineretului din Dudu, Chiajna.</p>
         <div class="hero__actions">
           <a href="#produse" class="btn btn--primary">Vezi produsele</a>
           <a href="#program" class="btn btn--ghost">Program &amp; locație</a>
@@ -108,7 +109,7 @@
             </li>
             <li>
               <span class="features__icon">🅿️</span>
-              <div><strong>Parcare &amp; acces ușor</strong><p>Parcare proprie, aproape de metrou și de liniile de tramvai.</p></div>
+              <div><strong>Parcare &amp; acces ușor</strong><p>Parcare proprie și acces rapid dinspre București și Chiajna.</p></div>
             </li>
             <li>
               <span class="features__icon">💳</span>
@@ -190,7 +191,7 @@
 
           <ul class="info-list">
             <li><span>📍</span><div><strong>Adresă</strong><p id="addressText"></p></div></li>
-            <li><span>🚇</span><div><strong>Transport</strong><p id="transportText"></p></div></li>
+            <li><span>🚗</span><div><strong>Acces</strong><p id="transportText"></p></div></li>
             <li><span>🅿️</span><div><strong>Parcare</strong><p id="parkingText"></p></div></li>
           </ul>
         </div>
@@ -269,7 +270,14 @@
     </div>
     <div class="container footer__bottom">
       <span>© <span id="year"></span> Piața Agroalimentară Tineretului. Toate drepturile rezervate.</span>
+      <span class="footer__maker" id="footerMaker" hidden></span>
       <a href="#acasa">Înapoi sus ↑</a>
+    </div>
+    <div class="container">
+      <details class="footer__credits" id="photoCredits" hidden>
+        <summary>Credite foto</summary>
+        <ul></ul>
+      </details>
     </div>
   </footer>
 
@@ -285,6 +293,7 @@
   </div>
 
   <script src="js/data.js"></script>
+  <script src="js/credits.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
