@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Piața Agroalimentară Tineretului — Produse proaspete de la producători locali</title>
+  <meta name="description" content="Piața Agroalimentară Tineretului: legume, fructe, lactate, carne, pâine și bunătăți de la producători locali. Program, producători, galerie foto și contact.">
+  <meta name="theme-color" content="#1f4d2b">
+  <meta property="og:title" content="Piața Agroalimentară Tineretului">
+  <meta property="og:description" content="Produse proaspete, direct de la producători locali.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/galerie/hero.jpg">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍅</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#acasa" class="logo" aria-label="Piața Agroalimentară Tineretului — acasă">
+        <span class="logo__mark">🍅</span>
+        <span class="logo__text">
+          <strong>Piața Tineretului</strong>
+          <small>Agroalimentară</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navigare principală">
+        <a href="#despre">Despre</a>
+        <a href="#produse">Produse</a>
+        <a href="#producatori">Producători</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#program">Program</a>
+        <a href="#contact" class="btn btn--small">Contact</a>
+      </nav>
+
+      <span class="status-pill" id="statusPill" aria-live="polite">
+        <span class="status-pill__dot"></span><span class="status-pill__text">…</span>
+      </span>
+
+      <button class="burger" id="burger" aria-label="Deschide meniul" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="acasa">
+      <div class="hero__media photo" data-photo="images/galerie/hero.jpg" data-emoji="🧺" data-label="Poză principală (hero)"></div>
+      <div class="hero__overlay"></div>
+
+      <div class="container hero__content">
+        <span class="eyebrow eyebrow--light">Proaspăt în fiecare dimineață</span>
+        <h1>Gustul adevărat al pieței, <em>direct de la producători.</em></h1>
+        <p class="hero__lead">Legume din grădină, fructe din livadă, brânzeturi de la stână, pâine pe vatră și zeci de branduri locale — toate sub același acoperiș, în inima cartierului Tineretului.</p>
+        <div class="hero__actions">
+          <a href="#produse" class="btn btn--primary">Vezi produsele</a>
+          <a href="#program" class="btn btn--ghost">Program &amp; locație</a>
+        </div>
+
+        <dl class="hero__stats">
+          <div><dt data-count="120">0</dt><dd>tarabe &amp; standuri</dd></div>
+          <div><dt data-count="45">0</dt><dd>producători locali</dd></div>
+          <div><dt data-count="7">0</dt><dd>zile pe săptămână</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>🍅 Roșii de grădină</span><span>🥒 Castraveți</span><span>🫑 Ardei kapia</span><span>🍎 Mere</span><span>🧀 Brânză de burduf</span><span>🥚 Ouă de țară</span><span>🍯 Miere</span><span>🥖 Pâine pe vatră</span><span>🥩 Carne proaspătă</span><span>💐 Flori</span>
+        <span>🍅 Roșii de grădină</span><span>🥒 Castraveți</span><span>🫑 Ardei kapia</span><span>🍎 Mere</span><span>🧀 Brânză de burduf</span><span>🥚 Ouă de țară</span><span>🍯 Miere</span><span>🥖 Pâine pe vatră</span><span>🥩 Carne proaspătă</span><span>💐 Flori</span>
+      </div>
+    </div>
+
+    <!-- ============ DESPRE ============ -->
+    <section class="section" id="despre">
+      <div class="container about">
+        <div class="about__photos reveal">
+          <div class="about__photo about__photo--a photo" data-photo="images/galerie/despre-1.jpg" data-emoji="🥬" data-label="Poză tarabe"></div>
+          <div class="about__photo about__photo--b photo" data-photo="images/galerie/despre-2.jpg" data-emoji="👩‍🌾" data-label="Poză producători"></div>
+          <div class="about__badge">
+            <strong>30+</strong>
+            <span>ani de tradiție</span>
+          </div>
+        </div>
+
+        <div class="about__text reveal">
+          <span class="eyebrow">Despre piață</span>
+          <h2>O piață modernă, cu suflet de piață de cartier.</h2>
+          <p>Piața Agroalimentară Tineretului aduce laolaltă producători din toată țara și branduri locale de încredere. Spațiul este acoperit, curat și luminos, cu standuri organizate pe categorii, ca să găsești rapid tot ce ai nevoie.</p>
+
+          <ul class="features">
+            <li>
+              <span class="features__icon">🌱</span>
+              <div><strong>Direct de la producător</strong><p>Fără intermediari — prețuri corecte și prospețime garantată.</p></div>
+            </li>
+            <li>
+              <span class="features__icon">🛡️</span>
+              <div><strong>Produse verificate</strong><p>Controale sanitar-veterinare zilnice și trasabilitate.</p></div>
+            </li>
+            <li>
+              <span class="features__icon">🅿️</span>
+              <div><strong>Parcare &amp; acces ușor</strong><p>Parcare proprie, aproape de metrou și de liniile de tramvai.</p></div>
+            </li>
+            <li>
+              <span class="features__icon">💳</span>
+              <div><strong>Plată cu cardul</strong><p>La majoritatea standurilor și la magazinele din incintă.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUSE ============ -->
+    <section class="section section--tinted" id="produse">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Ce găsești la noi</span>
+          <h2>Produse proaspete, de sezon</h2>
+          <p>O selecție din ce găsești zilnic pe tarabe. Prețurile sunt orientative și variază în funcție de sezon și producător.</p>
+        </div>
+
+        <div class="toolbar reveal">
+          <div class="chips" id="categoryChips" role="tablist" aria-label="Filtrează după categorie"></div>
+          <label class="search">
+            <span class="visually-hidden">Caută un produs</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="productSearch" placeholder="Caută: roșii, brânză, miere…">
+          </label>
+        </div>
+
+        <div class="products" id="productGrid"></div>
+        <p class="empty" id="productEmpty" hidden>Niciun produs găsit. Încearcă altă căutare.</p>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCATORI / BRANDURI ============ -->
+    <section class="section" id="producatori">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Branduri &amp; producători din incintă</span>
+          <h2>Cei care pun suflet în fiecare produs</h2>
+          <p>Magazinele, fermele și brandurile locale pe care le găsești în interiorul pieței.</p>
+        </div>
+
+        <div class="brands" id="brandGrid"></div>
+
+        <div class="cta-band reveal">
+          <div>
+            <h3>Ești producător sau ai un brand local?</h3>
+            <p>Avem standuri și spații comerciale disponibile. Hai să vorbim!</p>
+          </div>
+          <a href="#contact" class="btn btn--primary">Închiriază un stand</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALERIE ============ -->
+    <section class="section section--dark" id="galerie">
+      <div class="container">
+        <div class="section__head section__head--light reveal">
+          <span class="eyebrow eyebrow--light">Galerie foto</span>
+          <h2>Viața din piață</h2>
+          <p>Culori, arome și oameni. Apasă pe o poză pentru a o vedea mare.</p>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROGRAM & LOCATIE ============ -->
+    <section class="section" id="program">
+      <div class="container visit">
+        <div class="visit__info reveal">
+          <span class="eyebrow">Program &amp; locație</span>
+          <h2>Te așteptăm în fiecare zi</h2>
+
+          <table class="hours" id="hoursTable">
+            <caption class="visually-hidden">Program de funcționare</caption>
+            <tbody></tbody>
+          </table>
+
+          <ul class="info-list">
+            <li><span>📍</span><div><strong>Adresă</strong><p id="addressText"></p></div></li>
+            <li><span>🚇</span><div><strong>Transport</strong><p id="transportText"></p></div></li>
+            <li><span>🅿️</span><div><strong>Parcare</strong><p id="parkingText"></p></div></li>
+          </ul>
+        </div>
+
+        <div class="visit__map reveal">
+          <iframe id="mapFrame" title="Hartă — Piața Agroalimentară Tineretului" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--tinted" id="contact">
+      <div class="container contact">
+        <div class="contact__text reveal">
+          <span class="eyebrow">Contact</span>
+          <h2>Scrie-ne sau sună-ne</h2>
+          <p>Întrebări despre program, închirieri de standuri sau colaborări? Răspundem în cel mai scurt timp.</p>
+
+          <ul class="info-list">
+            <li><span>📞</span><div><strong>Telefon</strong><p><a id="phoneLink" href="#"></a></p></div></li>
+            <li><span>✉️</span><div><strong>Email</strong><p><a id="emailLink" href="#"></a></p></div></li>
+          </ul>
+
+          <div class="socials" id="socials"></div>
+        </div>
+
+        <form class="form reveal" id="contactForm" novalidate>
+          <div class="form__row">
+            <label>Nume
+              <input type="text" name="nume" required autocomplete="name" placeholder="Numele tău">
+            </label>
+            <label>Telefon
+              <input type="tel" name="telefon" autocomplete="tel" placeholder="07xx xxx xxx">
+            </label>
+          </div>
+          <label>Email
+            <input type="email" name="email" required autocomplete="email" placeholder="nume@exemplu.ro">
+          </label>
+          <label>Subiect
+            <select name="subiect">
+              <option>Informații generale</option>
+              <option>Închiriere stand / spațiu comercial</option>
+              <option>Colaborare / parteneriat</option>
+              <option>Sugestii &amp; reclamații</option>
+            </select>
+          </label>
+          <label>Mesaj
+            <textarea name="mesaj" rows="5" required placeholder="Cu ce te putem ajuta?"></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary btn--block">Trimite mesajul</button>
+          <p class="form__note" id="formNote" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#acasa" class="logo logo--light">
+          <span class="logo__mark">🍅</span>
+          <span class="logo__text"><strong>Piața Tineretului</strong><small>Agroalimentară</small></span>
+        </a>
+        <p>Produse proaspete, de la oameni pe care îi cunoști.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navigare subsol">
+        <a href="#despre">Despre</a>
+        <a href="#produse">Produse</a>
+        <a href="#producatori">Producători</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#program">Program</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="container footer__bottom">
+      <span>© <span id="year"></span> Piața Agroalimentară Tineretului. Toate drepturile rezervate.</span>
+      <a href="#acasa">Înapoi sus ↑</a>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vizualizare poză" hidden>
+    <button class="lightbox__close" id="lbClose" aria-label="Închide">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Poza anterioară">‹</button>
+    <figure class="lightbox__figure">
+      <div class="lightbox__img photo" id="lbImg"></div>
+      <figcaption id="lbCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Poza următoare">›</button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
