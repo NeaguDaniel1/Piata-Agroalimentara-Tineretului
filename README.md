@@ -3,8 +3,24 @@
 Site modern, rapid și adaptat pentru telefon, fără dependențe (HTML + CSS + JavaScript simplu).
 
 ## Cum îl deschizi
-Dublu-click pe `index.html` — se deschide în browser. Pentru publicare poate fi urcat pe orice
-hosting static (GitHub Pages, Netlify, Vercel, cPanel etc.).
+Dublu-click pe `public/index.html` — se deschide în browser.
+
+## Publicare pe Cloudflare Workers & Pages
+Site-ul este static; tot ce se publică stă în folderul `public/`, iar configurarea e în `wrangler.jsonc`.
+
+1. Intră pe [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create**.
+2. Alege **Import a repository** și conectează contul GitHub, apoi selectează
+   `Piata-Agroalimentara-Tineretului`.
+3. Setări:
+   - **Project name:** `piata-agroalimentara-tineretului`
+   - **Build command:** lasă gol
+   - **Deploy command:** `npx wrangler deploy`
+4. **Deploy**. Site-ul apare la `https://piata-agroalimentara-tineretului.<contul-tau>.workers.dev`.
+
+De acum, fiecare modificare urcată pe GitHub (branch `master`) republică site-ul automat.
+Un domeniu propriu (ex. `piatatineretului.ro`) se adaugă din proiect → **Settings → Domains & Routes**.
+
+Din terminal (alternativ): `npx wrangler login`, apoi `npx wrangler deploy`.
 
 ## Secțiuni
 - **Acasă (hero)** — poză mare, mesaj principal, cifre
@@ -16,10 +32,10 @@ hosting static (GitHub Pages, Netlify, Vercel, cPanel etc.).
 - **Contact** — telefon, email, rețele sociale, formular (deschide aplicația de email)
 
 ## Cum modifici conținutul
-Tot conținutul este în **`js/data.js`**: date de contact, program, produse, prețuri, branduri, galerie.
+Tot conținutul este în **`public/js/data.js`**: date de contact, program, produse, prețuri, branduri, galerie.
 Editezi textul dintre ghilimele și salvezi.
 
-> Brandurile, prețurile, adresa, telefonul și emailul din `js/data.js` sunt **exemple** —
+> Brandurile, prețurile, adresa, telefonul și emailul din `public/js/data.js` sunt **exemple** —
 > înlocuiește-le cu datele reale.
 
 ## Cum adaugi poze
@@ -28,13 +44,13 @@ lățime 1200–1600 px) cu **exact** numele de mai jos și apar automat:
 
 | Unde | Fișier |
 |---|---|
-| Poza mare de sus | `images/galerie/hero.jpg` |
-| Secțiunea „Despre” | `images/galerie/despre-1.jpg`, `images/galerie/despre-2.jpg` |
-| Galerie | `images/galerie/galerie-1.jpg` … `galerie-9.jpg` |
-| Produse | `images/produse/rosii.jpg`, `rosii-cherry.jpg` etc. (vezi câmpul `img` din `js/data.js`) |
-| Logo-uri branduri | `images/branduri/...png` (vezi câmpul `logo`; fără logo se afișează inițialele) |
+| Poza mare de sus | `public/images/galerie/hero.jpg` |
+| Secțiunea „Despre” | `public/images/galerie/despre-1.jpg`, `public/images/galerie/despre-2.jpg` |
+| Galerie | `public/images/galerie/galerie-1.jpg` … `galerie-9.jpg` |
+| Produse | `public/images/produse/rosii.jpg`, `rosii-cherry.jpg` etc. (vezi câmpul `img` din `public/js/data.js`) |
+| Logo-uri branduri | `public/images/branduri/...png` (vezi câmpul `logo`; fără logo se afișează inițialele) |
 
-Poți adăuga oricâte produse, branduri sau poze în galerie copiind un rând existent din `js/data.js`.
+Poți adăuga oricâte produse, branduri sau poze în galerie copiind un rând existent din `public/js/data.js`.
 
 ## Culori și fonturi
-Se schimbă din variabilele de la începutul fișierului `css/style.css` (`--green-800`, `--tomato` etc.).
+Se schimbă din variabilele de la începutul fișierului `public/css/style.css` (`--green-800`, `--tomato` etc.).

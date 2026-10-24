@@ -1,0 +1,9 @@
+{
+  // Configurare Cloudflare Workers (site static, fără cod de server)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "piata-agroalimentara-tineretului",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
