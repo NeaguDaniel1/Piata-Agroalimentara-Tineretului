@@ -56,5 +56,9 @@ Când înlocuiești o poză cu una proprie, șterge rândul ei din `public/js/cr
 
 Poți adăuga oricâte produse, branduri sau poze în galerie copiind un rând existent din `public/js/data.js`.
 
+## După ce schimbi poze sau fișiere
+Mărește numărul de versiune (ex. din `2` în `3`) în `public/js/data.js` (`assetVersion`) și în
+`public/index.html` (toate `?v=2`). Astfel vizitatorii văd imediat varianta nouă, nu cea din cache.
+
 ## Culori și fonturi
 Se schimbă din variabilele de la începutul fișierului `public/css/style.css` (`--green-800`, `--tomato` etc.).

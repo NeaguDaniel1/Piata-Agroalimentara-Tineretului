@@ -14,8 +14,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="preload" as="image" href="images/galerie/hero-4.jpg" fetchpriority="high">
+  <!-- La fiecare actualizare mărește numărul v=... aici și assetVersion din js/data.js,
+       ca browserele să descarce imediat fișierele noi în loc să le folosească pe cele din cache. -->
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preload" as="image" href="images/galerie/hero-4.jpg?v=2" fetchpriority="high">
 </head>
 <body>
 
@@ -293,8 +295,8 @@
     <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Poza următoare">›</button>
   </div>
 
-  <script src="js/data.js"></script>
-  <script src="js/credits.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/credits.js?v=2"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

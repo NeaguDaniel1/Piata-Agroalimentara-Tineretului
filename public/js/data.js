@@ -8,6 +8,9 @@
    ===================================================================== */
 
 window.SITE = {
+  // Mărește numărul când schimbi poze, ca vizitatorii să vadă imediat varianta nouă
+  assetVersion: "2",
+
   contact: {
     phone: "+40 700 000 000",
     email: "contact@piatatineretului.ro",

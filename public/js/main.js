@@ -21,6 +21,7 @@
     var src = el.getAttribute("data-photo");
     if (!src || el.dataset.loaded) return;
     el.dataset.loaded = "1";
+    if (S.assetVersion && src.indexOf("?") === -1) src += "?v=" + S.assetVersion;
     var img = new Image();
     img.onload = function () {
       el.style.backgroundImage = "url('" + src.replace(/'/g, "\\'") + "')";
