@@ -28,10 +28,10 @@ window.SITE = {
 
   // Pozele din header (se schimbă automat). Recomandat: 1600–1920 px lățime.
   heroSlides: [
-    { img: "images/galerie/hero-1.jpg", emoji: "🧺", label: "Header — poza 1" },
+    { img: "images/galerie/hero-4.jpg", emoji: "🧀", label: "Header — poza 4" },
     { img: "images/galerie/hero-2.jpg", emoji: "🍅", label: "Header — poza 2" },
     { img: "images/galerie/hero-3.jpg", emoji: "🍎", label: "Header — poza 3" },
-    { img: "images/galerie/hero-4.jpg", emoji: "🧀", label: "Header — poza 4" },
+    { img: "images/galerie/hero-1.jpg", emoji: "🧺", label: "Header — poza 1" },
     { img: "images/galerie/hero-5.jpg", emoji: "🥕", label: "Header — poza 5" }
   ],
 
