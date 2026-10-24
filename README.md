@@ -44,11 +44,15 @@ lățime 1200–1600 px) cu **exact** numele de mai jos și apar automat:
 
 | Unde | Fișier |
 |---|---|
-| Poza mare de sus | `public/images/galerie/hero.jpg` |
+| Header (5 poze care se schimbă) | `public/images/galerie/hero-1.jpg` … `hero-5.jpg` |
 | Secțiunea „Despre” | `public/images/galerie/despre-1.jpg`, `public/images/galerie/despre-2.jpg` |
 | Galerie | `public/images/galerie/galerie-1.jpg` … `galerie-9.jpg` |
 | Produse | `public/images/produse/rosii.jpg`, `rosii-cherry.jpg` etc. (vezi câmpul `img` din `public/js/data.js`) |
 | Logo-uri branduri | `public/images/branduri/...png` (vezi câmpul `logo`; fără logo se afișează inițialele) |
+
+**Pozele actuale sunt de test**: poze reale de pe Flickr, cu licențe Creative Commons (CC BY / CC BY-SA / CC0),
+găsite prin Openverse. Autorii sunt trecuți în subsol, la „Credite foto” (fișierul `public/js/credits.js`).
+Când înlocuiești o poză cu una proprie, șterge rândul ei din `public/js/credits.js`.
 
 Poți adăuga oricâte produse, branduri sau poze în galerie copiind un rând existent din `public/js/data.js`.
 

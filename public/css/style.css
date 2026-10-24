@@ -364,6 +364,7 @@ p { margin: 0 0 1em; }
 }
 .gallery__item--wide { grid-column: span 2; }
 .gallery__item--tall { grid-row: span 2; }
+.gallery__item--full { grid-column: 1 / -1; }
 .gallery__photo { position: absolute; inset: 0; transition: transform .6s ease; }
 .gallery__item:nth-child(3n+1) .photo { --ph-a: #3b8a55; --ph-b: #1f4d2b; }
 .gallery__item:nth-child(3n+2) .photo { --ph-a: #e5704f; --ph-b: #a82d1c; }

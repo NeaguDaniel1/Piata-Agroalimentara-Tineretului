@@ -114,7 +114,7 @@ window.SITE = {
     { name: "Cafeneaua din Piață",    type: "Cafenea",                stand: "Etaj, zona de relaxare", color: "#5a3e2b", desc: "Cafea de specialitate și patiserie, cu vedere spre hală.", logo: "images/branduri/cafeneaua.png" }
   ],
 
-  // Galerie foto. size: "wide", "tall" sau "" (normal)
+  // Galerie foto. size: "wide", "tall", "full" (toată lățimea) sau "" (normal)
   gallery: [
     { img: "images/galerie/galerie-1.jpg", caption: "Tarabele cu legume dimineața",  emoji: "🥕", size: "wide" },
     { img: "images/galerie/galerie-2.jpg", caption: "Roșii proaspete de grădină",    emoji: "🍅", size: "tall" },
@@ -124,6 +124,6 @@ window.SITE = {
     { img: "images/galerie/galerie-6.jpg", caption: "Producătorii noștri",           emoji: "👨‍🌾", size: "" },
     { img: "images/galerie/galerie-7.jpg", caption: "Standul de miere",              emoji: "🍯", size: "" },
     { img: "images/galerie/galerie-8.jpg", caption: "Florăria din piață",            emoji: "💐", size: "wide" },
-    { img: "images/galerie/galerie-9.jpg", caption: "Piața văzută de sus",           emoji: "🏪", size: "" }
+    { img: "images/galerie/galerie-9.jpg", caption: "Hala pieței",           emoji: "🏪", size: "full" }
   ]
 };
