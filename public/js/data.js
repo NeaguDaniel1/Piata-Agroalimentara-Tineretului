@@ -3,20 +3,23 @@
    și pozele. Nu e nevoie să modifici alte fișiere.
 
    POZE: pune fișierele în folderul indicat (ex. images/produse/rosii.jpg).
-   Dacă o poză lipsește, site-ul afișează automat un spațiu colorat
-   cu emoji, până când adaugi poza reală.
+   Dacă o poză lipsește, site-ul afișează automat un spațiu gri
+   cu numele pozei, până când adaugi poza reală.
    ===================================================================== */
 
 window.SITE = {
   // Mărește numărul când schimbi poze, ca vizitatorii să vadă imediat varianta nouă
-  assetVersion: "2",
+  assetVersion: "3",
 
   contact: {
     phone: "+40 700 000 000",
     email: "contact@piatatineretului.ro",
     address: "Str. Tineretului nr. 30, sat Dudu, comuna Chiajna, județul Ilfov",
+    // Varianta scurtă, afișată în banda de jos a headerului
+    shortAddress: "Str. Tineretului 30, Dudu, Chiajna",
     transport: "Acces ușor din București (zona Militari) și din toată comuna Chiajna.",
     parking: "Parcare proprie gratuită pentru clienți, 2 ore.",
+    parkingShort: "Gratuită pentru clienți, 2 ore",
     // Textul folosit pentru căutarea pe Google Maps
     mapQuery: "Strada Tineretului 30, Dudu, Chiajna, Ilfov",
     socials: [
@@ -62,42 +65,42 @@ window.SITE = {
 
   // badge: "Local", "Bio", "De sezon", "Tradițional", "Nou" (sau lasă gol)
   products: [
-    { name: "Roșii de grădină",      cat: "legume",  price: "8 lei/kg",    producer: "Grădina lui Matei",   emoji: "🍅", badge: "De sezon",   img: "images/produse/rosii.jpg" },
-    { name: "Roșii cherry",          cat: "legume",  price: "14 lei/kg",   producer: "Grădina lui Matei",   emoji: "🍅", badge: "Local",      img: "images/produse/rosii-cherry.jpg" },
-    { name: "Roșii inimă de bou",    cat: "legume",  price: "12 lei/kg",   producer: "Ferma Valea Verde",   emoji: "🍅", badge: "Tradițional",img: "images/produse/rosii-inima-de-bou.jpg" },
-    { name: "Castraveți cornișon",   cat: "legume",  price: "9 lei/kg",    producer: "Ferma Valea Verde",   emoji: "🥒", badge: "",           img: "images/produse/castraveti.jpg" },
-    { name: "Ardei kapia",           cat: "legume",  price: "10 lei/kg",   producer: "Grădina lui Matei",   emoji: "🫑", badge: "De sezon",   img: "images/produse/ardei-kapia.jpg" },
-    { name: "Vinete",                cat: "legume",  price: "7 lei/kg",    producer: "Ferma Valea Verde",   emoji: "🍆", badge: "",           img: "images/produse/vinete.jpg" },
-    { name: "Cartofi noi",           cat: "legume",  price: "4 lei/kg",    producer: "Ferma Covasna",       emoji: "🥔", badge: "Local",      img: "images/produse/cartofi.jpg" },
-    { name: "Ceapă roșie",           cat: "legume",  price: "5 lei/kg",    producer: "Ferma Covasna",       emoji: "🧅", badge: "",           img: "images/produse/ceapa.jpg" },
-    { name: "Salată verde",          cat: "legume",  price: "3 lei/buc",   producer: "Grădina lui Matei",   emoji: "🥬", badge: "Bio",        img: "images/produse/salata.jpg" },
+    { name: "Roșii de grădină",      cat: "legume",  producer: "Grădina lui Matei",   emoji: "🍅", badge: "De sezon",   img: "images/produse/rosii.jpg" },
+    { name: "Roșii cherry",          cat: "legume",  producer: "Grădina lui Matei",   emoji: "🍅", badge: "Local",      img: "images/produse/rosii-cherry.jpg" },
+    { name: "Roșii inimă de bou",    cat: "legume",  producer: "Ferma Valea Verde",   emoji: "🍅", badge: "Tradițional",img: "images/produse/rosii-inima-de-bou.jpg" },
+    { name: "Castraveți cornișon",   cat: "legume",  producer: "Ferma Valea Verde",   emoji: "🥒", badge: "",           img: "images/produse/castraveti.jpg" },
+    { name: "Ardei kapia",           cat: "legume",  producer: "Grădina lui Matei",   emoji: "🫑", badge: "De sezon",   img: "images/produse/ardei-kapia.jpg" },
+    { name: "Vinete",                cat: "legume",  producer: "Ferma Valea Verde",   emoji: "🍆", badge: "",           img: "images/produse/vinete.jpg" },
+    { name: "Cartofi noi",           cat: "legume",  producer: "Ferma Covasna",       emoji: "🥔", badge: "Local",      img: "images/produse/cartofi.jpg" },
+    { name: "Ceapă roșie",           cat: "legume",  producer: "Ferma Covasna",       emoji: "🧅", badge: "",           img: "images/produse/ceapa.jpg" },
+    { name: "Salată verde",          cat: "legume",  producer: "Grădina lui Matei",   emoji: "🥬", badge: "Bio",        img: "images/produse/salata.jpg" },
 
-    { name: "Mere Ionatan",          cat: "fructe",  price: "6 lei/kg",    producer: "Livada Bunicului",    emoji: "🍎", badge: "Local",      img: "images/produse/mere.jpg" },
-    { name: "Pere",                  cat: "fructe",  price: "9 lei/kg",    producer: "Livada Bunicului",    emoji: "🍐", badge: "",           img: "images/produse/pere.jpg" },
-    { name: "Struguri de masă",      cat: "fructe",  price: "11 lei/kg",   producer: "Podgoria Dealu Mare", emoji: "🍇", badge: "De sezon",   img: "images/produse/struguri.jpg" },
-    { name: "Prune",                 cat: "fructe",  price: "7 lei/kg",    producer: "Livada Bunicului",    emoji: "🫐", badge: "",           img: "images/produse/prune.jpg" },
-    { name: "Pepene verde",          cat: "fructe",  price: "3 lei/kg",    producer: "Ferma Dăbuleni",      emoji: "🍉", badge: "De sezon",   img: "images/produse/pepene.jpg" },
+    { name: "Mere Ionatan",          cat: "fructe",  producer: "Livada Bunicului",    emoji: "🍎", badge: "Local",      img: "images/produse/mere.jpg" },
+    { name: "Pere",                  cat: "fructe",  producer: "Livada Bunicului",    emoji: "🍐", badge: "",           img: "images/produse/pere.jpg" },
+    { name: "Struguri de masă",      cat: "fructe",  producer: "Podgoria Dealu Mare", emoji: "🍇", badge: "De sezon",   img: "images/produse/struguri.jpg" },
+    { name: "Prune",                 cat: "fructe",  producer: "Livada Bunicului",    emoji: "🫐", badge: "",           img: "images/produse/prune.jpg" },
+    { name: "Pepene verde",          cat: "fructe",  producer: "Ferma Dăbuleni",      emoji: "🍉", badge: "De sezon",   img: "images/produse/pepene.jpg" },
 
-    { name: "Brânză de burduf",      cat: "lactate", price: "55 lei/kg",   producer: "Stâna din Deal",      emoji: "🧀", badge: "Tradițional",img: "images/produse/branza-burduf.jpg" },
-    { name: "Telemea de oaie",       cat: "lactate", price: "40 lei/kg",   producer: "Stâna din Deal",      emoji: "🧀", badge: "Local",      img: "images/produse/telemea.jpg" },
-    { name: "Smântână de casă",      cat: "lactate", price: "18 lei/borcan",producer: "Lăptăria Bunica",    emoji: "🥛", badge: "",           img: "images/produse/smantana.jpg" },
-    { name: "Ouă de țară",           cat: "lactate", price: "1,5 lei/buc", producer: "Ferma Covasna",       emoji: "🥚", badge: "Bio",        img: "images/produse/oua.jpg" },
+    { name: "Brânză de burduf",      cat: "lactate", producer: "Stâna din Deal",      emoji: "🧀", badge: "Tradițional",img: "images/produse/branza-burduf.jpg" },
+    { name: "Telemea de oaie",       cat: "lactate", producer: "Stâna din Deal",      emoji: "🧀", badge: "Local",      img: "images/produse/telemea.jpg" },
+    { name: "Smântână de casă",      cat: "lactate", producer: "Lăptăria Bunica",    emoji: "🥛", badge: "",           img: "images/produse/smantana.jpg" },
+    { name: "Ouă de țară",           cat: "lactate", producer: "Ferma Covasna",       emoji: "🥚", badge: "Bio",        img: "images/produse/oua.jpg" },
 
-    { name: "Cârnați de casă",       cat: "carne",   price: "45 lei/kg",   producer: "Măcelăria Tradiția",  emoji: "🌭", badge: "Tradițional",img: "images/produse/carnati.jpg" },
-    { name: "Ceafă de porc",         cat: "carne",   price: "32 lei/kg",   producer: "Măcelăria Tradiția",  emoji: "🥩", badge: "",           img: "images/produse/ceafa.jpg" },
-    { name: "Pui de curte",          cat: "carne",   price: "28 lei/kg",   producer: "Ferma Covasna",       emoji: "🍗", badge: "Local",      img: "images/produse/pui.jpg" },
-    { name: "Crap & șalău proaspăt", cat: "carne",   price: "de la 25 lei/kg", producer: "Pescăria Delta",  emoji: "🐟", badge: "",           img: "images/produse/peste.jpg" },
+    { name: "Cârnați de casă",       cat: "carne",   producer: "Măcelăria Tradiția",  emoji: "🌭", badge: "Tradițional",img: "images/produse/carnati.jpg" },
+    { name: "Ceafă de porc",         cat: "carne",   producer: "Măcelăria Tradiția",  emoji: "🥩", badge: "",           img: "images/produse/ceafa.jpg" },
+    { name: "Pui de curte",          cat: "carne",   producer: "Ferma Covasna",       emoji: "🍗", badge: "Local",      img: "images/produse/pui.jpg" },
+    { name: "Crap & șalău proaspăt", cat: "carne",   producer: "Pescăria Delta",  emoji: "🐟", badge: "",           img: "images/produse/peste.jpg" },
 
-    { name: "Pâine pe vatră",        cat: "brutarie",price: "9 lei/buc",   producer: "Brutăria Spic de Aur",emoji: "🍞", badge: "Nou",        img: "images/produse/paine.jpg" },
-    { name: "Cozonac cu nucă",       cat: "brutarie",price: "35 lei/buc",  producer: "Brutăria Spic de Aur",emoji: "🥮", badge: "Tradițional",img: "images/produse/cozonac.jpg" },
-    { name: "Covrigi calzi",         cat: "brutarie",price: "2 lei/buc",   producer: "Brutăria Spic de Aur",emoji: "🥨", badge: "",           img: "images/produse/covrigi.jpg" },
+    { name: "Pâine pe vatră",        cat: "brutarie",producer: "Brutăria Spic de Aur",emoji: "🍞", badge: "Nou",        img: "images/produse/paine.jpg" },
+    { name: "Cozonac cu nucă",       cat: "brutarie",producer: "Brutăria Spic de Aur",emoji: "🥮", badge: "Tradițional",img: "images/produse/cozonac.jpg" },
+    { name: "Covrigi calzi",         cat: "brutarie",producer: "Brutăria Spic de Aur",emoji: "🥨", badge: "",           img: "images/produse/covrigi.jpg" },
 
-    { name: "Miere de salcâm",       cat: "camara",  price: "40 lei/kg",   producer: "Stupina Albina Harnică", emoji: "🍯", badge: "Bio",     img: "images/produse/miere.jpg" },
-    { name: "Zacuscă de casă",       cat: "camara",  price: "20 lei/borcan",producer: "Cămara cu Bunătăți", emoji: "🫙", badge: "Tradițional",img: "images/produse/zacusca.jpg" },
-    { name: "Dulceață de prune",     cat: "camara",  price: "18 lei/borcan",producer: "Cămara cu Bunătăți", emoji: "🍓", badge: "",           img: "images/produse/dulceata.jpg" },
+    { name: "Miere de salcâm",       cat: "camara",  producer: "Stupina Albina Harnică", emoji: "🍯", badge: "Bio",     img: "images/produse/miere.jpg" },
+    { name: "Zacuscă de casă",       cat: "camara",  producer: "Cămara cu Bunătăți", emoji: "🫙", badge: "Tradițional",img: "images/produse/zacusca.jpg" },
+    { name: "Dulceață de prune",     cat: "camara",  producer: "Cămara cu Bunătăți", emoji: "🍓", badge: "",           img: "images/produse/dulceata.jpg" },
 
-    { name: "Buchete de sezon",      cat: "flori",   price: "de la 30 lei", producer: "Florăria Petale",    emoji: "💐", badge: "",           img: "images/produse/flori.jpg" },
-    { name: "Răsaduri & aromatice",  cat: "flori",   price: "de la 5 lei",  producer: "Florăria Petale",    emoji: "🌿", badge: "Nou",        img: "images/produse/rasaduri.jpg" }
+    { name: "Buchete de sezon",      cat: "flori",   producer: "Florăria Petale",    emoji: "💐", badge: "",           img: "images/produse/flori.jpg" },
+    { name: "Răsaduri & aromatice",  cat: "flori",   producer: "Florăria Petale",    emoji: "🌿", badge: "Nou",        img: "images/produse/rasaduri.jpg" }
   ],
 
   // Brandurile / magazinele din interiorul pieței.
