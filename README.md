@@ -23,23 +23,23 @@ Un domeniu propriu (ex. `piatatineretului.ro`) se adaugă din proiect → **Sett
 Din terminal (alternativ): `npx wrangler login`, apoi `npx wrangler deploy`.
 
 ## Secțiuni
-- **Acasă (hero)** — poză mare, mesaj principal, cifre
+- **Acasă (hero)** — poze care se schimbă, mesaj principal, programul de azi, adresa și parcarea
 - **Despre** — prezentarea pieței, avantaje
-- **Produse** — 30 de produse, filtrare pe categorii și căutare (merge și fără diacritice: „rosii”)
-- **Producători / branduri** — magazinele și firmele din interiorul pieței, cu stand și logo
+- **Produse** — 30 de produse (fără prețuri), cu standul la care se găsesc; filtrare pe categorii și căutare (merge și fără diacritice: „rosii”). La început se văd 8, restul cu „Arată toate”
+- **Producători / branduri** — listă cu magazinele și firmele din piață, cu tipul, standul și logo (opțional)
 - **Galerie foto** — grilă de poze cu vizualizare mare (săgeți, Esc, swipe pe telefon)
 - **Program & locație** — program, „Deschis acum / Închis acum” calculat după ora României, hartă Google
 - **Contact** — telefon, email, rețele sociale, formular (deschide aplicația de email)
 
 ## Cum modifici conținutul
-Tot conținutul este în **`public/js/data.js`**: date de contact, program, produse, prețuri, branduri, galerie.
+Tot conținutul este în **`public/js/data.js`**: date de contact, program, produse, branduri, galerie.
 Editezi textul dintre ghilimele și salvezi.
 
-> Brandurile, prețurile, adresa, telefonul și emailul din `public/js/data.js` sunt **exemple** —
+> Brandurile, standurile, adresa, telefonul și emailul din `public/js/data.js` sunt **exemple** —
 > înlocuiește-le cu datele reale.
 
 ## Cum adaugi poze
-Fiecare spațiu de poză afișează o etichetă 📷 până pui poza reală. Copiază pozele (JPG, ideal
+Fiecare spațiu de poză afișează un fundal gri cu numele pozei până pui poza reală. Copiază pozele (JPG, ideal
 lățime 1200–1600 px) cu **exact** numele de mai jos și apar automat:
 
 | Unde | Fișier |

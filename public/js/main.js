@@ -49,6 +49,14 @@
   /* ---------- Produse ---------- */
   var activeCat = "toate";
   var query = "";
+  var showAll = false;
+  var PREVIEW_COUNT = 8; // câte produse se văd la început în „Toate”
+
+  // Standul producătorului (din lista de branduri), dacă există
+  function standOf(producer) {
+    var b = (S.brands || []).find(function (x) { return x.name === producer; });
+    return b ? b.stand : "";
+  }
 
   function renderChips() {
     var counts = {};
@@ -56,7 +64,7 @@
     $("#categoryChips").innerHTML = S.categories.map(function (c) {
       var n = c.id === "toate" ? S.products.length : (counts[c.id] || 0);
       return '<button class="chip' + (c.id === activeCat ? " is-active" : "") + '" role="tab" aria-selected="' + (c.id === activeCat) + '" data-cat="' + esc(c.id) + '">' +
-        '<span aria-hidden="true">' + c.emoji + '</span> ' + esc(c.label) + ' <small>' + n + '</small></button>';
+        esc(c.label) + ' <small>' + n + '</small></button>';
     }).join("");
   }
 
@@ -68,7 +76,12 @@
       return okCat && okQ;
     });
 
+    var total = list.length;
+    var limited = !showAll && activeCat === "toate" && !q && total > PREVIEW_COUNT;
+    if (limited) list = list.slice(0, PREVIEW_COUNT);
+
     $("#productGrid").innerHTML = list.map(function (p, i) {
+      var stand = standOf(p.producer);
       return '<article class="product" data-cat="' + esc(p.cat) + '" style="--i:' + (i % 8) + '">' +
         '<div class="product__media photo" ' + photoAttrs(p.img, p.emoji, p.name) + '>' +
           (p.badge ? '<span class="badge">' + esc(p.badge) + '</span>' : "") +
@@ -76,12 +89,16 @@
         '<div class="product__body">' +
           '<h3>' + esc(p.name) + '</h3>' +
           '<p class="product__producer">' + esc(p.producer) + '</p>' +
-          '<p class="product__price">' + esc(p.price) + '</p>' +
+          (stand ? '<p class="product__stand">' + esc(stand) + '</p>' : "") +
         '</div>' +
       '</article>';
     }).join("");
 
-    $("#productEmpty").hidden = list.length > 0;
+    var more = $("#productMore");
+    more.hidden = !limited;
+    if (limited) $("button", more).textContent = "Arată toate produsele (" + total + ")";
+
+    $("#productEmpty").hidden = total > 0;
     loadPhotos($("#productGrid"));
   }
 
@@ -99,27 +116,23 @@
       query = e.target.value;
       renderProducts();
     });
+    $("#productMore button").addEventListener("click", function () {
+      showAll = true;
+      renderProducts();
+    });
   }
 
-  /* ---------- Branduri ---------- */
-  function initials(name) {
-    return name.split(/\s+/).filter(function (w) { return w.length > 2 || /^[A-ZĂÂÎȘȚ]/.test(w); })
-      .slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
-  }
-
+  /* ---------- Branduri (listă tip ghid al pieței) ---------- */
   function initBrands() {
     $("#brandGrid").innerHTML = S.brands.map(function (b, i) {
       return '<article class="brand reveal" style="--brand:' + esc(b.color) + ';--i:' + (i % 4) + '">' +
-        '<div class="brand__logo">' +
-          '<span class="brand__initials">' + esc(initials(b.name)) + '</span>' +
-          (b.logo ? '<img src="' + esc(b.logo) + '" alt="Logo ' + esc(b.name) + '" loading="lazy" onerror="this.remove()">' : "") +
-        '</div>' +
+        (b.logo ? '<img class="brand__logo" src="' + esc(b.logo) + '" alt="Logo ' + esc(b.name) + '" loading="lazy" onerror="this.remove()">' : "") +
         '<div class="brand__body">' +
-          '<span class="brand__type">' + esc(b.type) + '</span>' +
           '<h3>' + esc(b.name) + '</h3>' +
-          '<p>' + esc(b.desc) + '</p>' +
-          '<span class="brand__stand">📍 ' + esc(b.stand) + '</span>' +
+          '<p class="brand__type">' + esc(b.type) + '</p>' +
+          '<p class="brand__desc">' + esc(b.desc) + '</p>' +
         '</div>' +
+        '<span class="brand__stand">' + esc(b.stand) + '</span>' +
       '</article>';
     }).join("");
   }
@@ -217,19 +230,43 @@
     var pill = $("#statusPill");
     pill.classList.toggle("is-open", !!isOpen);
     $(".status-pill__text", pill).textContent = isOpen ? "Deschis acum · până la " + h.close : "Închis acum";
+    $("#heroToday").textContent = h && h.open
+      ? h.open + "–" + h.close + (isOpen ? " · deschis acum" : now.minutes < toMin(h.open) ? " · se deschide la " + h.open : " · închis acum")
+      : "Închis azi";
+  }
+
+  // Program pe scurt: zilele consecutive cu același orar se grupează („Luni–Vineri 06:00–20:00”)
+  function hoursSummary() {
+    var groups = [];
+    S.hours.forEach(function (h) {
+      var t = h.open ? h.open + "–" + h.close : "închis";
+      var last = groups[groups.length - 1];
+      if (last && last.t === t) last.to = h.label; else groups.push({ from: h.label, to: h.label, t: t });
+    });
+    return groups.map(function (g) {
+      return (g.from === g.to ? g.from : g.from + "–" + g.to) + " " + g.t;
+    }).join(" · ");
   }
 
   /* ---------- Contact & hartă ---------- */
   function initContact() {
     var c = S.contact;
     $("#addressText").textContent = c.address;
+    $("#heroAddress").textContent = c.shortAddress || c.address;
+    $("#heroParking").textContent = c.parkingShort || c.parking;
     $("#transportText").textContent = c.transport;
     $("#parkingText").textContent = c.parking;
     $("#phoneLink").textContent = c.phone;
     $("#phoneLink").href = "tel:" + c.phone.replace(/\s+/g, "");
     $("#emailLink").textContent = c.email;
     $("#emailLink").href = "mailto:" + c.email;
-    $("#mapFrame").src = "https://www.google.com/maps?q=" + encodeURIComponent(c.mapQuery) + "&output=embed";
+    $("#footerAddress").textContent = c.address;
+    $("#footerHours").textContent = hoursSummary();
+    $("#footerPhone").textContent = c.phone;
+    $("#footerPhone").href = $("#phoneLink").href;
+    $("#footerEmail").textContent = c.email;
+    $("#footerEmail").href = "mailto:" + c.email;
+    $("#mapFrame").src ="https://www.google.com/maps?q=" + encodeURIComponent(c.mapQuery) + "&output=embed";
     $("#socials").innerHTML = c.socials.map(function (s) {
       return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';
     }).join("");
@@ -300,24 +337,6 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  function initCounters() {
-    var els = $$("[data-count]");
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    els.forEach(function (el) {
-      var target = +el.getAttribute("data-count");
-      var suffix = target >= 10 ? "+" : "";
-      if (reduce) { el.textContent = target + suffix; return; }
-      var start = null;
-      function step(ts) {
-        if (!start) start = ts;
-        var p = Math.min((ts - start) / 1400, 1);
-        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + (p === 1 ? suffix : "");
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    });
-  }
-
   /* ---------- Header cu poze care se schimbă ---------- */
   function initHero() {
     var slides = S.heroSlides || [];
@@ -386,7 +405,6 @@
     initContact();
     loadPhotos(document);
     initReveal();
-    initCounters();
     setInterval(initHours, 60000);
   });
 })();
