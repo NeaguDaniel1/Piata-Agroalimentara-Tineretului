@@ -38,16 +38,17 @@
     display: flex; flex-direction: column; justify-content: space-between;
   }
 
-  /* Textul mare, pe două rânduri:
-       „S-a deschis Piața”          — galben, foarte gros, cât tot panoul (să sară în ochi)
-       „Agroalimentară Tineretului” — alb, mai mic
-     Mărimea fiecărui rând se calculează automat (scriptul de jos) ca să umple lățimea. */
+  /* Textul mare, pe trei rânduri de aceeași mărime, care umplu tot panoul verde:
+       „S-a deschis” (galben, gros) / „Piața” (galben, gros) + „Agroalimentară” / „Tineretului”
+     Mărimea se calculează automat (scriptul de jos): cât de mare se poate, fără să iasă din panou. */
   .name {
     font: 600 230mm/0.8 "Bricolage Grotesque", sans-serif;
     margin-left: -0.03em;
   }
   .name span { display: block; white-space: nowrap; letter-spacing: -0.03em; }
-  .name .l1 { font-weight: 700; color: var(--yellow); }
+  .name .y { font-weight: 700; color: var(--yellow); }
+  .name .l2 { margin-top: 0.04em; }
+  .name .l3 { margin-top: 0.14em; } /* loc pentru virgula de sub ț și coada lui g */
 
   .cats {
     display: flex; align-items: center; gap: 42mm;
@@ -105,7 +106,7 @@
         <circle cx="100" cy="100" r="100"/>
         <path d="M140 100 H62 M98 62 L60 100 L98 138"/>
       </svg></div>
-      <h1 class="name"><span class="l1">S-a deschis Piața</span><span class="l2">Agroalimentară Tineretului</span></h1>
+      <h1 class="name"><span class="l1 y">S-a deschis</span><span class="l2"><b class="y">Piața</b> Agroalimentară</span><span class="l3">Tineretului</span></h1>
       <p class="cats">Legume <i></i> Fructe <i></i> Lactate <i></i> Carne <i></i> Pâine <i></i> Flori</p>
     </section>
 
@@ -149,19 +150,16 @@
   // înălțimea disponibilă: fără marginile de sus/jos, rândul cu categorii și un spațiu de minim 55 mm
   var availH = left.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)
              - cats.getBoundingClientRect().height - 45 * mm;
-  var l1 = name.querySelector(".l1"), l2 = name.querySelector(".l2");
+  var l1 = name.querySelector(".l1");
   function textWidth(sp) { var r = document.createRange(); r.selectNodeContents(sp); return r.getBoundingClientRect().width; }
-  // fiecare rând își are mărimea lui, ca să umple exact lățimea
-  var s1 = parseFloat(getComputedStyle(l1).fontSize) * availW / textWidth(l1);
-  var s2 = parseFloat(getComputedStyle(l2).fontSize) * availW / textWidth(l2);
-  function apply(k) {
-    l1.style.fontSize = s1 * k + "px";
-    l2.style.fontSize = s2 * k + "px";
-    l2.style.marginTop = 0.16 * s1 * k + "px"; // loc pentru virgula de sub ț din „Piața”
-  }
-  apply(1);
+  // aceeași mărime pentru toate rândurile: rândul cel mai lung umple lățimea…
+  var size = parseFloat(getComputedStyle(name).fontSize);
+  var widest = Math.max.apply(null, Array.prototype.map.call(name.children, textWidth));
+  size = size * availW / widest;
+  name.style.fontSize = size + "px";
+  // …iar dacă nu încape pe înălțime, se micșorează până umple exact înălțimea
   var h = name.getBoundingClientRect().height;
-  if (h > availH) apply(availH / h);
+  if (h > availH) { size = size * availH / h; name.style.fontSize = size + "px"; }
 
   // Aliniere: vârful literelor din „S-a deschis” la același nivel cu „Deschis zilnic”
   var ctx = document.createElement("canvas").getContext("2d");
