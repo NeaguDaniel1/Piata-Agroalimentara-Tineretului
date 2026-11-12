@@ -4,139 +4,104 @@
 <meta charset="utf-8">
 <title>Banner deschidere — 4200 × 1000 mm</title>
 <!--
-  Banner „S-a deschis piața”, 4,2 m × 1 m, la dimensiune reală (1 unitate = 1 mm).
+  Banner „S-a deschis Piața Tineretului”, 4,2 m × 1 m, la dimensiune reală (1:1, măsuri în mm).
   Săgeata e implicit în stânga; cu ?sageata=dreapta în adresă se mută în dreapta.
-  Dimensiunea textelor se calculează automat ca să umple exact spațiul.
+  Rândul mare („Piața Tineretului”) își calculează singur mărimea ca să umple exact lățimea.
   PDF-ul se generează cu: node materiale/banner/genereaza.js
 -->
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Paytone+One&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Geist:wght@500;600&display=block" rel="stylesheet">
 <style>
   @page { size: 4200mm 1000mm; margin: 0; }
-  * { margin: 0; padding: 0; }
-  html, body { width: 4200mm; height: 1000mm; background: #fff; }
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  svg { display: block; width: 4200mm; height: 1000mm; }
+  :root {
+    --green: #1e5a3c;
+    --green-light: #23613f;
+    --yellow: #f3c43c;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 4200mm; height: 1000mm; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: var(--green); }
+
+  .banner { position: relative; width: 4200mm; height: 1000mm; overflow: hidden; background: var(--green); color: var(--white); }
+
+  /* frunza din logo, mare, ca element de fundal (tăiată de margine) */
+  .watermark { position: absolute; top: -230mm; right: -330mm; width: 1500mm; height: 1500mm; }
+  .watermark path { fill: none; stroke: var(--green-light); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* săgeata în cerc */
+  .arrow { position: absolute; top: 140mm; left: 150mm; width: 720mm; height: 720mm; }
+  .arrow circle { fill: var(--yellow); }
+  .arrow path { fill: none; stroke: var(--green); stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* textul */
+  .text {
+    position: absolute; top: 0; bottom: 0; left: 1040mm; right: 160mm;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .kicker {
+    font: 600 175mm/1 "Bricolage Grotesque", sans-serif; letter-spacing: -4mm;
+    color: var(--yellow);
+    margin-bottom: 30mm;
+  }
+  .name {
+    font: 600 330mm/0.9 "Bricolage Grotesque", sans-serif; letter-spacing: -10mm;
+    white-space: nowrap;
+    margin-left: -10mm;
+  }
+  .meta {
+    margin-top: 72mm;
+    display: flex; align-items: center; gap: 36mm;
+    font: 500 66mm/1 "Geist", sans-serif; color: rgba(255, 255, 255, .88);
+    white-space: nowrap;
+  }
+  .meta b { font-weight: 600; color: var(--white); letter-spacing: 7mm; }
+  .meta i { width: 16mm; height: 16mm; border-radius: 50%; background: var(--yellow); display: block; flex: none; }
+
+  /* varianta cu săgeata în dreapta */
+  .right .arrow { left: auto; right: 150mm; }
+  .right .arrow svg { transform: scaleX(-1); }
+  .right .text { left: 160mm; right: 1040mm; }
+  .right .watermark { right: auto; left: -330mm; transform: scaleX(-1); }
 </style>
 </head>
 <body>
-<svg id="b" viewBox="0 0 4200 1000" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="arrowFill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#45c93a"/>
-      <stop offset=".55" stop-color="#1f9e2a"/>
-      <stop offset="1" stop-color="#0f7a1f"/>
-    </linearGradient>
-    <linearGradient id="pillFill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#17782a"/>
-      <stop offset="1" stop-color="#0a5219"/>
-    </linearGradient>
-  </defs>
+  <div class="banner" id="banner">
+    <svg class="watermark" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 23c0-8.3 5.7-14 14-14 0 8.3-5.7 14-14 14Z"/><path d="M9 23l8-8"/></svg>
 
-  <!-- fundal și chenar -->
-  <rect width="4200" height="1000" fill="#ffffff"/>
-  <rect x="48" y="48" width="4104" height="904" fill="none" stroke="#0e6420" stroke-width="30"/>
+    <div class="arrow"><svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true">
+      <circle cx="100" cy="100" r="100"/>
+      <path d="M140 100 H62 M98 62 L60 100 L98 138"/>
+    </svg></div>
 
-  <!-- săgeata + liniuțele decorative (se oglindesc pentru varianta dreapta) -->
-  <g id="arrowSide">
-    <g id="arrow">
-      <path id="arrowPath" d="M160 500 L660 125 L660 330 L1010 330 L1010 670 L660 670 L660 875 Z"/>
-    </g>
-    <g stroke-linecap="round" fill="none">
-      <!-- stânga sus -->
-      <line x1="150" y1="175" x2="330" y2="275" stroke="#ffd60a" stroke-width="30"/>
-      <line x1="120" y1="290" x2="300" y2="330" stroke="#139a29" stroke-width="30"/>
-      <line x1="230" y1="125" x2="380" y2="215" stroke="#139a29" stroke-width="22"/>
-      <!-- stânga jos -->
-      <line x1="150" y1="825" x2="330" y2="725" stroke="#ffd60a" stroke-width="30"/>
-      <line x1="120" y1="710" x2="300" y2="670" stroke="#139a29" stroke-width="30"/>
-      <line x1="230" y1="875" x2="380" y2="785" stroke="#139a29" stroke-width="22"/>
-    </g>
-  </g>
-
-  <g id="farSide" stroke-linecap="round" fill="none">
-    <!-- dreapta sus -->
-    <line x1="4060" y1="130" x2="3955" y2="235" stroke="#ffd60a" stroke-width="30"/>
-    <line x1="4085" y1="275" x2="3965" y2="320" stroke="#139a29" stroke-width="28"/>
-    <line x1="3960" y1="120" x2="3905" y2="185" stroke="#139a29" stroke-width="20"/>
-    <!-- dreapta jos -->
-    <line x1="4060" y1="870" x2="3955" y2="765" stroke="#ffd60a" stroke-width="30"/>
-    <line x1="4085" y1="725" x2="3965" y2="680" stroke="#139a29" stroke-width="28"/>
-    <line x1="3960" y1="880" x2="3905" y2="815" stroke="#139a29" stroke-width="20"/>
-  </g>
-
-  <!-- textul -->
-  <g id="title"></g>
-  <g id="pill"></g>
-</svg>
+    <div class="text">
+      <p class="kicker">S-a deschis</p>
+      <h1 class="name" id="name">Piața Tineretului</h1>
+      <p class="meta"><b>AGROALIMENTARĂ</b><i></i>Producători locali<i></i>Str. Tineretului 30, Dudu</p>
+    </div>
+  </div>
 
 <script>
 (async function () {
-  await document.fonts.load('100px "Paytone One"', "ȚȘĂ");
-  await document.fonts.load('100px "Anton"');
+  if (new URLSearchParams(location.search).get("sageata") === "dreapta") document.getElementById("banner").classList.add("right");
+  await document.fonts.load('600 100px "Bricolage Grotesque"', "ȚȘĂ");
+  await document.fonts.load('500 100px "Geist"', "ȚȘĂ");
   await document.fonts.ready;
 
-  var NS = "http://www.w3.org/2000/svg";
-  var right = new URLSearchParams(location.search).get("sageata") === "dreapta";
-  function el(name, attrs, parent) {
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    if (parent) parent.appendChild(e);
-    return e;
-  }
-  // Măsurare exactă a literelor (fără spațiul gol de deasupra / dedesubt)
-  var ctx = document.createElement("canvas").getContext("2d");
-  function metrics(text, family, size, spacing) {
-    ctx.font = size + 'px "' + family + '"';
-    ctx.letterSpacing = (spacing || 0) * size + "px";
-    var m = ctx.measureText(text), h = ctx.measureText("H");
-    return { width: m.actualBoundingBoxLeft + m.actualBoundingBoxRight, left: m.actualBoundingBoxLeft, cap: h.actualBoundingBoxAscent };
-  }
-  // Mărimea fontului la care textul are exact lățimea dorită
-  function fit(text, family, width, spacing) {
-    return 1000 * width / metrics(text, family, 1000, spacing).width;
-  }
+  // „Piața Tineretului” umple exact lățimea zonei de text
+  var name = document.getElementById("name"), box = name.parentElement;
+  var target = box.clientWidth;
+  var r = document.createRange(); r.selectNodeContents(name);
+  var size = parseFloat(getComputedStyle(name).fontSize);
+  var ls = parseFloat(getComputedStyle(name).letterSpacing) / size;
+  var w = r.getBoundingClientRect().width;
+  size = size * target / w;
+  name.style.fontSize = size + "px";
+  name.style.letterSpacing = ls * size + "px";
 
-  // Săgeata: contur verde închis, linie albă, interior în degrade
-  var p = document.getElementById("arrowPath").getAttribute("d");
-  var arrow = document.getElementById("arrow");
-  arrow.innerHTML = "";
-  el("path", { d: p, fill: "none", stroke: "#0b5a1c", "stroke-width": 64, "stroke-linejoin": "round" }, arrow);
-  el("path", { d: p, fill: "none", stroke: "#ffffff", "stroke-width": 30, "stroke-linejoin": "round" }, arrow);
-  el("path", { d: p, fill: "url(#arrowFill)", stroke: "#0b5a1c", "stroke-width": 4, "stroke-linejoin": "round" }, arrow);
-  el("path", { d: "M300 500 L640 245 L640 360", fill: "none", stroke: "rgba(255,255,255,.35)", "stroke-width": 14, "stroke-linecap": "round", "stroke-linejoin": "round" }, arrow);
-
-  // Zona pentru text (între săgeată și liniuțele din capăt)
-  // în varianta „dreapta” zona e oglindită exact
-  var x0 = right ? 4200 - 3850 : 1110, x1 = right ? 4200 - 1110 : 3850;
-  if (right) {
-    document.getElementById("arrowSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
-    document.getElementById("farSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
-  }
-  var w = x1 - x0;
-
-  // Rândul 1: „S-A DESCHIS PIAȚA” — verde, contur galben, umbră
-  var t1 = "S-A DESCHIS PIAȚA", f1 = "Paytone One";
-  var sp1 = 0.07; // spațiu între litere (din mărimea fontului), ca să nu se lipească literele cu contur
-  var s1 = fit(t1, f1, w - 40, sp1), m1 = metrics(t1, f1, s1, sp1);
-  var base1 = 120 + m1.cap + 40;
-  var tx1 = x0 + 20 + m1.left;
-  var title = document.getElementById("title");
-  var common1 = { x: tx1, y: base1, "font-family": f1, "font-size": s1, "letter-spacing": s1 * sp1 };
-  el("text", Object.assign({}, common1, { x: tx1 + 12, y: base1 + 14, fill: "#0b4a17", stroke: "#0b4a17", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
-  el("text", Object.assign({}, common1, { fill: "#ffd60a", stroke: "#ffd60a", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
-  el("text", Object.assign({}, common1, { fill: "#0e6420" }), title).textContent = t1;
-
-  // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
-  var pill = document.getElementById("pill");
-  var py = base1 + 120, ph = 880 - py, pr = 70; // loc pentru virgula de sub Ț
-  el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
-  el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
-  var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
-  var s2 = fit(t2, f2, w - 150), m2 = metrics(t2, f2, s2);
-  // dacă textul ar fi prea înalt pentru pastilă, îl micșorăm după înălțime
-  var maxCap = ph * 0.62;
-  if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
-  el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: py + ph / 2 + m2.cap / 2, "font-family": f2, "font-size": s2, fill: "#ffffff" }, pill).textContent = t2;
+  // rândul de jos nu are voie să fie mai lat decât numele
+  var meta = document.querySelector(".meta"), rm = document.createRange(); rm.selectNodeContents(meta);
+  var mw = rm.getBoundingClientRect().width;
+  if (mw > target) meta.style.fontSize = parseFloat(getComputedStyle(meta).fontSize) * target / mw + "px";
 
   window.__gata = true;
 })();

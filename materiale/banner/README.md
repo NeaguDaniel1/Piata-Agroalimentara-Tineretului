@@ -3,7 +3,7 @@
 Toate fișierele `.pdf` sunt **fișierele de tipar**: vectoriale, la dimensiune reală 1:1 (4200 × 1000 mm).
 Fișierele `-100dpi.jpg` sunt aceleași bannere ca imagine, la dimensiune reală — doar dacă tipografia cere JPG.
 
-## 1. Banner „S-a deschis piața” (după modelul cu săgeata)
+## 1. Banner „S-a deschis Piața Tineretului” (cu săgeată)
 | Fișier | |
 |---|---|
 | `banner-deschidere-sageata-stanga-4200x1000mm.pdf` | Săgeata spre **stânga** |
