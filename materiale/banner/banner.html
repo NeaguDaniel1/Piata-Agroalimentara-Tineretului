@@ -7,6 +7,8 @@
   Banner pentru tipar: 4,2 m × 1 m (dimensiune reală, 1:1).
   Toate măsurile sunt în milimetri. Textele importante stau la cel puțin
   80 mm de margine, ca să nu fie atinse de tiv sau de capse.
+  Variante cu săgeată: ?sageata=stanga sau ?sageata=dreapta în adresă
+  (la „dreapta” bannerul e oglindit, ca săgeata să fie la marginea din dreapta).
   PDF-ul se generează cu scriptul genereaza.js din același folder.
 -->
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
@@ -20,6 +22,7 @@
     --muted: #4f5a52;
     --accent: #d9472b;
     --mustard: #e9b44c;
+    --yellow: #f3c43c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 4200mm; height: 1000mm; }
@@ -77,11 +80,39 @@
   }
   .address svg { width: 95mm; height: 95mm; flex: none; }
   .address small { display: block; font-weight: 400; color: var(--muted); font-size: 60mm; margin-top: 12mm; }
+
+  /* ---------- Săgeata în cerc (doar în variantele cu săgeată) ---------- */
+  .arrow { display: none; position: absolute; top: 220mm; width: 560mm; height: 560mm; }
+  .arrow circle { fill: var(--yellow); }
+  .arrow path { fill: none; stroke: var(--green); stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; }
+
+  .has-arrow .arrow { display: block; }
+  .has-arrow .left { width: 2720mm; }
+  .has-arrow .name { font-size: 420mm; letter-spacing: -13mm; }
+  .has-arrow .cats { font-size: 66mm; gap: 34mm; }
+  .has-arrow .cats i { width: 20mm; height: 20mm; }
+  .has-arrow .right { padding: 102mm 130mm 0 130mm; }
+  .has-arrow .right h2 { font-size: 160mm; }
+  .has-arrow .hours { font-size: 74mm; }
+  .has-arrow .address { font-size: 72mm; }
+  .has-arrow .address small { font-size: 56mm; }
+
+  .arrow-left .left { padding-left: 840mm; }
+  .arrow-left .arrow { left: 150mm; }
+  .arrow-left .cats { left: 840mm; }
+
+  .arrow-right { flex-direction: row-reverse; }
+  .arrow-right .arrow { right: 150mm; }
+  .arrow-right .arrow svg { transform: scaleX(-1); }
 </style>
 </head>
 <body>
-  <div class="banner">
+  <div class="banner" id="banner">
     <section class="left">
+      <div class="arrow"><svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true">
+        <circle cx="100" cy="100" r="100"/>
+        <path d="M140 100 H62 M98 62 L60 100 L98 138"/>
+      </svg></div>
       <div class="brand">
         <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M9 23c0-8.3 5.7-14 14-14 0 8.3-5.7 14-14 14Z"/><path d="M9 23l8-8"/></svg>
         <p class="kicker">Piața Agroalimentară</p>
@@ -105,5 +136,16 @@
       </p>
     </section>
   </div>
+
+<script>
+(async function () {
+  var dir = new URLSearchParams(location.search).get("sageata");
+  var b = document.getElementById("banner");
+  if (dir === "stanga") b.classList.add("has-arrow", "arrow-left");
+  if (dir === "dreapta") b.classList.add("has-arrow", "arrow-right");
+  await document.fonts.ready;
+  window.__gata = true;
+})();
+</script>
 </body>
 </html>

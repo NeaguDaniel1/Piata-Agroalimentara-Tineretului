@@ -6,6 +6,8 @@ const { chromium } = require("playwright");
 const dir = __dirname;
 const lucrari = [
   { sursa: "banner.html", pdf: "banner-4200x1000mm.pdf", verificaMargini: true },
+  { sursa: "banner.html?sageata=stanga", pdf: "banner-program-sageata-stanga-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
+  { sursa: "banner.html?sageata=dreapta", pdf: "banner-program-sageata-dreapta-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
   { sursa: "banner-deschidere.html", pdf: "banner-deschidere-sageata-stanga-4200x1000mm.pdf", asteapta: true },
   { sursa: "banner-deschidere.html?sageata=dreapta", pdf: "banner-deschidere-sageata-dreapta-4200x1000mm.pdf", asteapta: true },
 ];

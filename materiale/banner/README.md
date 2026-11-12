@@ -16,7 +16,10 @@ Alege varianta în care săgeata arată spre intrarea în piață, din locul und
 ## 2. Banner cu program și adresă
 | Fișier | |
 |---|---|
-| `banner-4200x1000mm.pdf` | Banner verde/alb cu numele pieței, programul și adresa |
+| `banner-program-sageata-stanga-4200x1000mm.pdf` | Cu săgeată spre **stânga** (săgeata în capătul stâng) |
+| `banner-program-sageata-dreapta-4200x1000mm.pdf` | Cu săgeată spre **dreapta** (banner oglindit, săgeata în capătul drept) |
+| `previzualizare-program-sageata-*.png` | Doar pentru vizualizare |
+| `banner-4200x1000mm.pdf` | Varianta fără săgeată |
 | `previzualizare.png` | Doar pentru vizualizare |
 | `banner.html` | Sursa designului |
 
