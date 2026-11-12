@@ -32,22 +32,22 @@
 
   /* ---------- Partea stângă: numele pieței ---------- */
   .left {
-    position: relative; flex: 1; height: 100%;
+    position: relative; flex: 1; min-width: 0; height: 100%; /* min-width: 0 = panoul nu se lărgește după text */
     background: var(--green); color: #fff;
     padding: 95mm 120mm 95mm 150mm;
     display: flex; flex-direction: column; justify-content: space-between;
   }
 
-  /* Textul mare: „S-a deschis / Piața Agroalimentară / Tineretului”.
-     Mărimea se calculează automat (scriptul de jos) ca rândul cel mai lung să umple lățimea. */
+  /* Textul mare, pe două rânduri:
+       „S-a deschis Piața”          — galben, foarte gros, cât tot panoul (să sară în ochi)
+       „Agroalimentară Tineretului” — alb, mai mic
+     Mărimea fiecărui rând se calculează automat (scriptul de jos) ca să umple lățimea. */
   .name {
     font: 600 230mm/0.8 "Bricolage Grotesque", sans-serif;
-    letter-spacing: -0.03em;
     margin-left: -0.03em;
   }
-  .name span { display: block; white-space: nowrap; }
-  .name span:nth-child(3) { margin-top: 0.1em; } /* loc pentru virgula de sub Ț */
-  .name .y { color: var(--yellow); }
+  .name span { display: block; white-space: nowrap; letter-spacing: -0.03em; }
+  .name .l1 { font-weight: 700; color: var(--yellow); }
 
   .cats {
     display: flex; align-items: center; gap: 42mm;
@@ -105,7 +105,7 @@
         <circle cx="100" cy="100" r="100"/>
         <path d="M140 100 H62 M98 62 L60 100 L98 138"/>
       </svg></div>
-      <h1 class="name"><span class="y">S-a deschis</span><span>Piața Agroalimentară</span><span>Tineretului</span></h1>
+      <h1 class="name"><span class="l1">S-a deschis Piața</span><span class="l2">Agroalimentară Tineretului</span></h1>
       <p class="cats">Legume <i></i> Fructe <i></i> Lactate <i></i> Carne <i></i> Pâine <i></i> Flori</p>
     </section>
 
@@ -138,6 +138,7 @@
   if (dir === "stanga") b.classList.add("has-arrow", "arrow-left");
   if (dir === "dreapta") b.classList.add("has-arrow", "arrow-right");
   await document.fonts.load('600 100px "Bricolage Grotesque"', "ȚȘĂ");
+  await document.fonts.load('700 100px "Bricolage Grotesque"', "ȚȘĂ");
   await document.fonts.ready;
 
   // Textul mare umple lățimea panoului verde, fără să depășească înălțimea
@@ -148,16 +149,19 @@
   // înălțimea disponibilă: fără marginile de sus/jos, rândul cu categorii și un spațiu de minim 55 mm
   var availH = left.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)
              - cats.getBoundingClientRect().height - 45 * mm;
-  function widest() {
-    return Math.max.apply(null, Array.prototype.map.call(name.children, function (sp) {
-      var r = document.createRange(); r.selectNodeContents(sp); return r.getBoundingClientRect().width;
-    }));
+  var l1 = name.querySelector(".l1"), l2 = name.querySelector(".l2");
+  function textWidth(sp) { var r = document.createRange(); r.selectNodeContents(sp); return r.getBoundingClientRect().width; }
+  // fiecare rând își are mărimea lui, ca să umple exact lățimea
+  var s1 = parseFloat(getComputedStyle(l1).fontSize) * availW / textWidth(l1);
+  var s2 = parseFloat(getComputedStyle(l2).fontSize) * availW / textWidth(l2);
+  function apply(k) {
+    l1.style.fontSize = s1 * k + "px";
+    l2.style.fontSize = s2 * k + "px";
+    l2.style.marginTop = 0.16 * s1 * k + "px"; // loc pentru virgula de sub ț din „Piața”
   }
-  var size = parseFloat(getComputedStyle(name).fontSize);
-  size = size * availW / widest();
-  name.style.fontSize = size + "px";
+  apply(1);
   var h = name.getBoundingClientRect().height;
-  if (h > availH) { size = size * availH / h; name.style.fontSize = size + "px"; }
+  if (h > availH) apply(availH / h);
 
   // Aliniere: vârful literelor din „S-a deschis” la același nivel cu „Deschis zilnic”
   var ctx = document.createElement("canvas").getContext("2d");
@@ -169,7 +173,7 @@
     var line = el.firstElementChild || el, r = document.createRange(); r.selectNodeContents(line);
     return r.getClientRects()[0].top + m.fontBoundingBoxAscent - m.actualBoundingBoxAscent;
   }
-  var diff = capTop(document.querySelector(".right h2")) - capTop(name);
+  var diff = capTop(document.querySelector(".right h2")) - capTop(l1);
   name.style.marginTop = diff + "px";
   // rândul cu categorii nu e mai lat decât textul mare
   var rc = document.createRange(); rc.selectNodeContents(cats);
