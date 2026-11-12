@@ -23,6 +23,31 @@
     --accent: #d9472b;
     --mustard: #e9b44c;
     --yellow: #f3c43c;
+
+    /* culorile variantei (tema implicită: verde) */
+    --left-bg: var(--green); --left-ink: #fff; --hl: var(--yellow);
+    --right-bg: var(--cream); --right-ink: var(--ink); --right-muted: var(--muted);
+    --rule: #d4d1c5; --rule-strong: var(--ink);
+    --stripe: var(--accent); --circle: var(--yellow); --arrow-ink: var(--green); --pin: var(--accent);
+  }
+  /* Variante de culori: ?tema=alb | galben | inchis */
+  .banner[data-tema="alb"] {
+    --left-bg: #f6f5f1; --left-ink: #16241b; --hl: #d9472b;
+    --right-bg: #1e5a3c; --right-ink: #fff; --right-muted: rgba(255,255,255,.75);
+    --rule: rgba(255,255,255,.25); --rule-strong: #fff;
+    --stripe: #f3c43c; --circle: #1e5a3c; --arrow-ink: #fff; --pin: #f3c43c;
+  }
+  .banner[data-tema="galben"] {
+    --left-bg: #f3c43c; --left-ink: #16241b; --hl: #b8321f;
+    --right-bg: #16241b; --right-ink: #fff; --right-muted: rgba(255,255,255,.75);
+    --rule: rgba(255,255,255,.22); --rule-strong: #f3c43c;
+    --stripe: #b8321f; --circle: #16241b; --arrow-ink: #f3c43c; --pin: #f3c43c;
+  }
+  .banner[data-tema="inchis"] {
+    --left-bg: #16241b; --left-ink: #fff; --hl: #f3c43c;
+    --right-bg: #1e5a3c; --right-ink: #fff; --right-muted: rgba(255,255,255,.75);
+    --rule: rgba(255,255,255,.22); --rule-strong: #f3c43c;
+    --stripe: #f3c43c; --circle: #f3c43c; --arrow-ink: #16241b; --pin: #f3c43c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 4200mm; height: 1000mm; }
@@ -33,7 +58,7 @@
   /* ---------- Partea stângă: numele pieței ---------- */
   .left {
     position: relative; flex: 1; min-width: 0; height: 100%; /* min-width: 0 = panoul nu se lărgește după text */
-    background: var(--green); color: #fff;
+    background: var(--left-bg); color: var(--left-ink);
     padding: 95mm 120mm 95mm 150mm;
     display: flex; flex-direction: column; justify-content: space-between;
   }
@@ -48,7 +73,7 @@
     margin-left: -0.03em;
   }
   .name span { display: block; white-space: nowrap; letter-spacing: -0.03em; }
-  .name .y { font-weight: 700; color: var(--yellow); }
+  .name .y { font-weight: 700; color: var(--hl); }
   .name .l2 { margin-top: 0.1em; }  /* loc pentru căciula lui Ă */
   .name .l3 { margin-top: 0.14em; } /* loc pentru coada lui g */
 
@@ -60,20 +85,20 @@
   .cats i { width: 22mm; height: 22mm; border-radius: 50%; background: var(--mustard); display: block; }
 
   /* ---------- Separator ---------- */
-  .stripe { width: 46mm; height: 100%; background: var(--accent); flex: none; }
+  .stripe { width: 46mm; height: 100%; background: var(--stripe); flex: none; }
 
   /* ---------- Partea dreaptă: program și adresă ---------- */
   .right {
     flex: none; width: 950mm; height: 100%;
-    background: var(--cream); color: var(--ink);
+    background: var(--right-bg); color: var(--right-ink);
     padding: 95mm 90mm 95mm 100mm;
     display: flex; flex-direction: column; justify-content: space-between;
   }
   .right h2 { font: 600 108mm/0.86 "Bricolage Grotesque", sans-serif; letter-spacing: -3mm; margin-bottom: 26mm; }
 
   .hours { width: 100%; border-collapse: collapse; font: 500 48mm/1 "Geist", sans-serif; }
-  .hours td { padding: 11mm 0; border-top: 2.5mm solid #d4d1c5; }
-  .hours tr:first-child td { border-top: 4mm solid var(--ink); }
+  .hours td { padding: 11mm 0; border-top: 2.5mm solid var(--rule); }
+  .hours tr:first-child td { border-top: 4mm solid var(--rule-strong); }
   .hours td:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
 
   .address {
@@ -81,12 +106,14 @@
     font: 600 52mm/1.1 "Geist", sans-serif;
   }
   .address svg { width: 64mm; height: 64mm; flex: none; }
-  .address small { display: block; font-weight: 400; color: var(--muted); font-size: 41mm; margin-top: 8mm; }
+  .address small { display: block; font-weight: 400; color: var(--right-muted); font-size: 41mm; margin-top: 8mm; }
+  .address svg path { fill: var(--pin); }
+  .address svg circle { fill: var(--right-bg); }
 
   /* ---------- Săgeata în cerc (doar în variantele cu săgeată) ---------- */
   .arrow { display: none; position: absolute; top: 240mm; width: 520mm; height: 520mm; }
-  .arrow circle { fill: var(--yellow); }
-  .arrow path { fill: none; stroke: var(--green); stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow circle { fill: var(--circle); }
+  .arrow path { fill: none; stroke: var(--arrow-ink); stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; }
 
   .has-arrow .arrow { display: block; }
   .has-arrow .cats { font-size: 66mm; gap: 34mm; }
@@ -137,6 +164,8 @@
 (async function () {
   var dir = new URLSearchParams(location.search).get("sageata");
   var b = document.getElementById("banner");
+  var tema = new URLSearchParams(location.search).get("tema");
+  if (tema) b.setAttribute("data-tema", tema);
   if (dir === "stanga") b.classList.add("has-arrow", "arrow-left");
   if (dir === "dreapta") b.classList.add("has-arrow", "arrow-right");
   await document.fonts.load('600 100px "Bricolage Grotesque"', "ȚȘĂ");
