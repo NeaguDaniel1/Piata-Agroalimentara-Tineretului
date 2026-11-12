@@ -40,7 +40,7 @@
   <!-- săgeata + liniuțele decorative (se oglindesc pentru varianta dreapta) -->
   <g id="arrowSide">
     <g id="arrow">
-      <path id="arrowPath" d="M160 500 L660 125 L660 330 L1010 330 L1010 670 L660 670 L660 875 Z"/>
+      <path id="arrowPath" d="M160 500 L660 125 L660 330 L920 330 L920 670 L660 670 L660 875 Z"/>
     </g>
     <g stroke-linecap="round" fill="none">
       <g id="leftTop">
@@ -100,7 +100,7 @@
   document.getElementById("leftBottom").setAttribute("transform", "translate(0 " + extra + ")");
   document.getElementById("farBottom").setAttribute("transform", "translate(0 " + extra + ")");
   // săgeata rămâne centrată pe înălțime și crește puțin (12% la 1,2 m), cu vârful pe loc
-  var k = 1 + 0.6 * extra / 1000;
+  var k = 1; // săgeata rămâne la aceeași mărime, ca textul să aibă mai mult loc
   function el(name, attrs, parent) {
     var e = document.createElementNS(NS, name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -132,8 +132,8 @@
 
   // Zona pentru text (între săgeată și liniuțele din capăt)
   // în varianta „dreapta” zona e oglindită exact
-  var start = 1110 + (k - 1) * (1010 - 160); // textul începe după săgeată
-  var x0 = right ? 4200 - 3850 : start, x1 = right ? 4200 - start : 3850;
+  var start = 1010 + (k - 1) * (920 - 160); // textul începe după săgeată
+  var x0 = right ? 4200 - 3870 : start, x1 = right ? 4200 - start : 3870;
   if (right) {
     document.getElementById("arrowSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
     document.getElementById("farSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
@@ -142,15 +142,15 @@
 
   // Rândul 1: „S-A DESCHIS PIAȚA” — verde, contur galben, umbră
   var t1 = "S-A DESCHIS PIAȚA", f1 = "Paytone One";
-  var sp1 = 0.07; // spațiu între litere (din mărimea fontului), ca să nu se lipească literele cu contur
+  var sp1 = 0.055; // spațiu între litere (din mărimea fontului), ca să nu se lipească literele cu contur
   var s1 = fit(t1, f1, w - 40, sp1), m1 = metrics(t1, f1, s1, sp1);
   var base1 = 160 + extra * 0.35 + m1.cap;
   var tx1 = x0 + 20 + m1.left;
   var title = document.getElementById("title");
   var common1 = { x: tx1, y: base1, "font-family": f1, "font-size": s1, "letter-spacing": s1 * sp1 };
-  el("text", Object.assign({}, common1, { x: tx1 + 12, y: base1 + 14, fill: "#0b4a17", stroke: "#0b4a17", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
+  el("text", Object.assign({}, common1, { x: tx1 + 12, y: base1 + 14, fill: "#6e1410", stroke: "#6e1410", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
   el("text", Object.assign({}, common1, { fill: "#ffd60a", stroke: "#ffd60a", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
-  el("text", Object.assign({}, common1, { fill: "#0e6420" }), title).textContent = t1;
+  el("text", Object.assign({}, common1, { fill: "#d7261e" }), title).textContent = t1; // roșu
 
   // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
   var pill = document.getElementById("pill");
@@ -158,11 +158,14 @@
   el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
   el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
   var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
-  var s2 = fit(t2, f2, w - 150), m2 = metrics(t2, f2, s2);
+  var s2 = fit(t2, f2, w - 90), m2 = metrics(t2, f2, s2);
   // dacă textul ar fi prea înalt pentru pastilă, îl micșorăm după înălțime
   var maxCap = ph * 0.62;
   if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
-  el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: py + ph / 2 + m2.cap / 2, "font-family": f2, "font-size": s2, fill: "#ffffff" }, pill).textContent = t2;
+  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță ușor (cel mult 15%)
+  var sy = Math.min(1.15, Math.max(1, maxCap / m2.cap));
+  el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: 0, "font-family": f2, "font-size": s2, fill: "#ffffff",
+    transform: "translate(0 " + (py + ph / 2 + m2.cap * sy / 2) + ") scale(1 " + sy + ")" }, pill).textContent = t2;
 
   window.__gata = true;
 })();
