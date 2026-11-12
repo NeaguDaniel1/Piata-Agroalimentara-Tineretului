@@ -1,5 +1,19 @@
 # Bannere Piața Tineretului — 4,2 m × 1 m
 
+## ✅ Varianta aleasă pentru tipar
+**„S-A DESCHIS PIAȚA / AGROALIMENTARĂ TINERETULUI”, după modelul cu săgeata verde:**
+
+| Fișier | |
+|---|---|
+| `banner-deschidere-clasic-sageata-stanga-4200x1000mm.pdf` | **De dat la tipar** — săgeata spre stânga |
+| `banner-deschidere-clasic-sageata-dreapta-4200x1000mm.pdf` | **De dat la tipar** — săgeata spre dreapta |
+| `banner-deschidere-clasic-sageata-*-100dpi.jpg` | Aceleași, ca imagine, dacă tipografia cere JPG |
+| `previzualizare-deschidere-clasic-sageata-*.png` | Doar pentru vizualizare |
+| `banner-deschidere-clasic.html` | Sursa designului |
+
+Celelalte fișiere de mai jos sunt variantele propuse în timpul lucrului (păstrate pentru referință).
+
+
 Toate fișierele `.pdf` sunt **fișierele de tipar**: vectoriale, la dimensiune reală 1:1 (4200 × 1000 mm).
 Fișierele `-100dpi.jpg` sunt aceleași bannere ca imagine, la dimensiune reală — doar dacă tipografia cere JPG.
 
