@@ -5,7 +5,7 @@ const { chromium } = require("playwright");
 
 const dir = __dirname;
 const lucrari = [
-  { sursa: "banner.html", pdf: "banner-4200x1000mm.pdf", verificaMargini: true },
+  { sursa: "banner.html", pdf: "banner-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
   { sursa: "banner.html?sageata=stanga", pdf: "banner-program-sageata-stanga-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
   { sursa: "banner.html?sageata=dreapta", pdf: "banner-program-sageata-dreapta-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
   { sursa: "banner-deschidere.html", pdf: "banner-deschidere-sageata-stanga-4200x1000mm.pdf", asteapta: true },
@@ -25,7 +25,7 @@ async function verificaMargini(page) {
       if (a.right > c.right - 80 * mm || a.left < c.left + 80 * mm || a.bottom > c.bottom - 80 * mm || a.top < c.top + 80 * mm)
         out.push(sel + " e prea aproape de margine: " + JSON.stringify({ right: (c.right - a.right) / mm, left: (a.left - c.left) / mm, bottom: (c.bottom - a.bottom) / mm, top: (a.top - c.top) / mm }));
     };
-    [".brand", ".name", ".cats"].forEach((s) => check(s, ".left"));
+    [".name", ".cats"].forEach((s) => check(s, ".left"));
     [".right h2", ".hours", ".address"].forEach((s) => check(s, ".right"));
     return out;
   });

@@ -34,26 +34,25 @@
   .left {
     position: relative; width: 2500mm; height: 100%;
     background: var(--green); color: #fff;
-    padding: 110mm 0 0 150mm;
+    padding: 0 130mm 0 150mm;
+    display: flex; flex-direction: column; justify-content: center;
   }
-  .brand { display: flex; align-items: center; gap: 60mm; }
-  .mark { width: 210mm; height: 210mm; flex: none; }
-  .mark rect { fill: #fff; }
-  .mark path { fill: none; stroke: var(--green); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-  .kicker { font: 500 118mm/1 "Geist", sans-serif; letter-spacing: -1mm; color: rgba(255, 255, 255, .85); white-space: nowrap; }
-  .kicker b { font-weight: 600; color: var(--yellow); }
 
+  /* Textul mare: „S-a deschis / Piața Agroalimentară / Tineretului”.
+     Mărimea se calculează automat (scriptul de jos) ca rândul cel mai lung să umple lățimea. */
   .name {
-    margin-top: 40mm;
-    font: 600 455mm/0.82 "Bricolage Grotesque", sans-serif;
-    letter-spacing: -14mm;
-    margin-left: -12mm;
+    font: 600 230mm/0.98 "Bricolage Grotesque", sans-serif;
+    letter-spacing: -0.03em;
+    margin-left: -0.03em;
   }
+  .name span { display: block; white-space: nowrap; }
+  .name .y { color: var(--yellow); }
 
   .cats {
-    position: absolute; left: 150mm; bottom: 95mm;
+    margin-top: 70mm;
     display: flex; align-items: center; gap: 42mm;
     font: 500 76mm/1 "Geist", sans-serif; color: rgba(255, 255, 255, .9);
+    white-space: nowrap;
   }
   .cats i { width: 22mm; height: 22mm; border-radius: 50%; background: var(--mustard); display: block; }
 
@@ -89,10 +88,6 @@
 
   .has-arrow .arrow { display: block; }
   .has-arrow .left { width: 2720mm; }
-  .has-arrow .name { font-size: 420mm; letter-spacing: -13mm; }
-  .has-arrow .brand { gap: 50mm; }
-  .has-arrow .mark { width: 180mm; height: 180mm; }
-  .has-arrow .kicker { font-size: 96mm; }
   .has-arrow .cats { font-size: 66mm; gap: 34mm; }
   .has-arrow .cats i { width: 20mm; height: 20mm; }
   .has-arrow .right { padding: 102mm 130mm 0 130mm; }
@@ -103,7 +98,7 @@
 
   .arrow-left .left { padding-left: 840mm; }
   .arrow-left .arrow { left: 150mm; }
-  .arrow-left .cats { left: 840mm; }
+  .arrow-right .left { padding-right: 840mm; }
 
   .arrow-right { flex-direction: row-reverse; }
   .arrow-right .arrow { right: 150mm; }
@@ -117,11 +112,7 @@
         <circle cx="100" cy="100" r="100"/>
         <path d="M140 100 H62 M98 62 L60 100 L98 138"/>
       </svg></div>
-      <div class="brand">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M9 23c0-8.3 5.7-14 14-14 0 8.3-5.7 14-14 14Z"/><path d="M9 23l8-8"/></svg>
-        <p class="kicker"><b>S-a deschis</b> Piața Agroalimentară</p>
-      </div>
-      <h1 class="name">Tineretului</h1>
+      <h1 class="name"><span class="y">S-a deschis</span><span>Piața Agroalimentară</span><span>Tineretului</span></h1>
       <p class="cats">Legume <i></i> Fructe <i></i> Lactate <i></i> Carne <i></i> Pâine <i></i> Flori</p>
     </section>
 
@@ -147,7 +138,29 @@
   var b = document.getElementById("banner");
   if (dir === "stanga") b.classList.add("has-arrow", "arrow-left");
   if (dir === "dreapta") b.classList.add("has-arrow", "arrow-right");
+  await document.fonts.load('600 100px "Bricolage Grotesque"', "ȚȘĂ");
   await document.fonts.ready;
+
+  // Textul mare umple lățimea panoului verde, fără să depășească înălțimea
+  var left = document.querySelector(".left"), name = document.querySelector(".name"), cats = document.querySelector(".cats");
+  var cs = getComputedStyle(left);
+  var availW = left.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  var availH = left.clientHeight - 2 * 125 * 96 / 25.4; // minim 125 mm sus și jos
+  function widest() {
+    return Math.max.apply(null, Array.prototype.map.call(name.children, function (sp) {
+      var r = document.createRange(); r.selectNodeContents(sp); return r.getBoundingClientRect().width;
+    }));
+  }
+  var size = parseFloat(getComputedStyle(name).fontSize);
+  size = size * availW / widest();
+  name.style.fontSize = size + "px";
+  var total = name.getBoundingClientRect().height + cats.getBoundingClientRect().height + parseFloat(getComputedStyle(cats).marginTop);
+  if (total > availH) { size = size * availH / total; name.style.fontSize = size + "px"; }
+  // rândul cu categorii nu e mai lat decât textul mare
+  var rc = document.createRange(); rc.selectNodeContents(cats);
+  var cw = rc.getBoundingClientRect().width;
+  if (cw > availW) cats.style.fontSize = parseFloat(getComputedStyle(cats).fontSize) * availW / cw + "px";
+
   window.__gata = true;
 })();
 </script>
