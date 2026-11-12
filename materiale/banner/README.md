@@ -23,7 +23,7 @@ Alege varianta în care săgeata arată spre intrarea în piață, din locul und
 | `previzualizare.png` | Doar pentru vizualizare |
 | `banner.html` | Sursa designului |
 
-Înainte de tipar, verifică **programul** (Luni–Vineri 06–20, Sâmbătă 06–18, Duminică 07–14) — e cel de pe site.
+Înainte de tipar, verifică **programul**: e trecut pe fiecare zi (Luni–Vineri 06–20, Sâmbătă 06–18, Duminică 07–14), ca pe site.
 
 ## De spus la tipografie
 - Dimensiune finală: **4200 × 1000 mm**, fișier 1:1.
