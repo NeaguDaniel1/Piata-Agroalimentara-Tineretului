@@ -154,16 +154,16 @@
 
   // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
   var pill = document.getElementById("pill");
-  var py = base1 + 120, ph = (H - 120) - py, pr = 70; // loc pentru virgula de sub Ț
+  var py = base1 + 115, ph = (H - 92) - py, pr = 74; // sus: loc pentru virgula de sub Ț; jos: aproape de chenar
   el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
   el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
   var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
   var s2 = fit(t2, f2, w - 90), m2 = metrics(t2, f2, s2);
   // dacă textul ar fi prea înalt pentru pastilă, îl micșorăm după înălțime
-  var maxCap = ph * 0.62;
+  var maxCap = ph * 0.68;
   if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
-  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță ușor (cel mult 15%)
-  var sy = Math.min(1.15, Math.max(1, maxCap / m2.cap));
+  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță (cel mult cu 40%)
+  var sy = Math.min(1.4, Math.max(1, maxCap / m2.cap));
   el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: 0, "font-family": f2, "font-size": s2, fill: "#ffffff",
     transform: "translate(0 " + (py + ph / 2 + m2.cap * sy / 2) + ") scale(1 " + sy + ")" }, pill).textContent = t2;
 
