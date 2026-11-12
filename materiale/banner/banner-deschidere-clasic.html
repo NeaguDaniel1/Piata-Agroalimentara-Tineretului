@@ -149,14 +149,29 @@
   var title = document.getElementById("title");
   // Literele roșii se înalță (până la +40%), păstrând linia de bază: vârful urcă spre chenarul de sus
   var pyFixed = 160 + extra * 0.35 + metrics(t1, f1, fit(t1, f1, w - 40, 0.055), 0.055).cap + 120; // pastila rămâne exact unde era
+  // Textul din pastilă: aceeași mărime și poziție ca înainte (calculat față de pastila veche)
+  var py0 = pyFixed, ph0 = (H - 120) - py0;
+  var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
+  var s2 = fit(t2, f2, w - 90), m2 = metrics(t2, f2, s2);
+  var maxCap = ph0 * 0.62;
+  if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
+  var sy = Math.min(1.15, Math.max(1, maxCap / m2.cap));
+  var textBase = py0 + ph0 / 2 + m2.cap * sy / 2, textCap = m2.cap * sy;
+  // Pastila nouă: puțin mai mică (sus cu 4 cm, jos cu 1,5 cm, nimic pe lățime), textul rămâne pe loc
+  var oldPadTop = (textBase - textCap) - py0, oldPadBottom = (py0 + ph0) - textBase;
+  var padTop = Math.max(oldPadTop - 40, 68), padBottom = Math.max(oldPadBottom - 15, 60); // loc pentru căciula lui Ă
+  var py = textBase - textCap - padTop, ph = (textBase + padBottom) - py, pr = 66;
+  var px = x0, pw = w;
+  var pyFixedOld = pyFixed; pyFixed = py;              // titlul se raportează la noua margine de sus a pastilei
+
   // Titlul (cu tot cu virgula de sub Ț) stă la mijloc între chenarul de sus și pastilă,
   // cu același spațiu liber deasupra și dedesubt, și e cât de înalt încape
   ctx.font = s1 + 'px "' + f1 + '"';
   var desc = ctx.measureText("Ț").actualBoundingBoxDescent;          // cât coboară virgula
   // mai mult loc deasupra, mai puțin dedesubt => titlul stă puțin mai jos
-  var frameIn = 63, pillTop = pyFixed - 11, ol = 14, spaceTop = 40, spaceBottom = 28; // mm (jos include umbra virgulei)
+  var frameIn = 63, pillTop = pyFixed - 11, ol = 14, spaceTop = 54, spaceBottom = 24; // mm (jos include umbra virgulei)
   var avail = (pillTop - ol - spaceBottom) - (frameIn + ol + spaceTop);
-  var sy1 = Math.min(1.6, Math.max(1, avail / (m1.cap + desc)));
+  var sy1 = Math.min(1.7, Math.max(1, avail / (m1.cap + desc)));
   var used = (m1.cap + desc) * sy1;
   base1 = frameIn + ol + spaceTop + (avail - used) / 2 + m1.cap * sy1;
   title.setAttribute("transform", "translate(0 " + base1 + ") scale(1 " + sy1 + ") translate(0 " + (-base1) + ")");
@@ -184,18 +199,10 @@
 
   // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
   var pill = document.getElementById("pill");
-  var py = pyFixed, ph = (H - 120) - py, pr = 70; // pastila: aceeași poziție și mărime ca înainte
-  el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
-  el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
-  var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
-  var s2 = fit(t2, f2, w - 90), m2 = metrics(t2, f2, s2);
-  // dacă textul ar fi prea înalt pentru pastilă, îl micșorăm după înălțime
-  var maxCap = ph * 0.62;
-  if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
-  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță ușor (cel mult 15%)
-  var sy = Math.min(1.15, Math.max(1, maxCap / m2.cap));
+  el("rect", { x: px + 14, y: py + 18, width: pw, height: ph, rx: pr, fill: "#0b4a17" }, pill);
+  el("rect", { x: px, y: py, width: pw, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
   el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: 0, "font-family": f2, "font-size": s2, fill: "#ffffff",
-    transform: "translate(0 " + (py + ph / 2 + m2.cap * sy / 2) + ") scale(1 " + sy + ")" }, pill).textContent = t2;
+    transform: "translate(0 " + textBase + ") scale(1 " + sy + ")" }, pill).textContent = t2;
 
   window.__gata = true;
 })();
