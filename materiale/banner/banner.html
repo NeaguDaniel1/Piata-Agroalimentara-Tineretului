@@ -40,7 +40,8 @@
   .mark { width: 210mm; height: 210mm; flex: none; }
   .mark rect { fill: #fff; }
   .mark path { fill: none; stroke: var(--green); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-  .kicker { font: 500 118mm/1 "Geist", sans-serif; letter-spacing: -1mm; opacity: .82; }
+  .kicker { font: 500 118mm/1 "Geist", sans-serif; letter-spacing: -1mm; color: rgba(255, 255, 255, .85); white-space: nowrap; }
+  .kicker b { font-weight: 600; color: var(--yellow); }
 
   .name {
     margin-top: 40mm;
@@ -89,6 +90,9 @@
   .has-arrow .arrow { display: block; }
   .has-arrow .left { width: 2720mm; }
   .has-arrow .name { font-size: 420mm; letter-spacing: -13mm; }
+  .has-arrow .brand { gap: 50mm; }
+  .has-arrow .mark { width: 180mm; height: 180mm; }
+  .has-arrow .kicker { font-size: 96mm; }
   .has-arrow .cats { font-size: 66mm; gap: 34mm; }
   .has-arrow .cats i { width: 20mm; height: 20mm; }
   .has-arrow .right { padding: 102mm 130mm 0 130mm; }
@@ -115,7 +119,7 @@
       </svg></div>
       <div class="brand">
         <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M9 23c0-8.3 5.7-14 14-14 0 8.3-5.7 14-14 14Z"/><path d="M9 23l8-8"/></svg>
-        <p class="kicker">Piața Agroalimentară</p>
+        <p class="kicker"><b>S-a deschis</b> Piața Agroalimentară</p>
       </div>
       <h1 class="name">Tineretului</h1>
       <p class="cats">Legume <i></i> Fructe <i></i> Lactate <i></i> Carne <i></i> Pâine <i></i> Flori</p>
