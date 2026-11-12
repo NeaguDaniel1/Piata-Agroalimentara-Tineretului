@@ -147,23 +147,47 @@
   var base1 = 160 + extra * 0.35 + m1.cap;
   var tx1 = x0 + 20 + m1.left;
   var title = document.getElementById("title");
+  // Literele roșii se înalță (până la +40%), păstrând linia de bază: vârful urcă spre chenarul de sus
+  var topLimit = 105 + extra * 0.075;                 // cât de sus pot ajunge literele (mm)
+  var pyFixed = base1 + 120;                          // pastila rămâne exact unde era
+  var gap = 120;                                      // spațiu pentru virgula de sub Ț (crește odată cu literele)
+  var sy1 = Math.min(1.4, Math.max(1, (pyFixed - topLimit) / (m1.cap + gap)));
+  base1 = pyFixed - gap * sy1;                        // linia de bază urcă cât e nevoie
+  title.setAttribute("transform", "translate(0 " + base1 + ") scale(1 " + sy1 + ") translate(0 " + (-base1) + ")");
+  // conturul rămâne la fel de gros pe orizontală și pe verticală
+  var unit = svg.getScreenCTM().a;                     // px pe mm pe ecran
+  var outline = { "vector-effect": "non-scaling-stroke", "stroke-width": 28 * unit, "stroke-linejoin": "round" };
   var common1 = { x: tx1, y: base1, "font-family": f1, "font-size": s1, "letter-spacing": s1 * sp1 };
-  el("text", Object.assign({}, common1, { x: tx1 + 12, y: base1 + 14, fill: "#6e1410", stroke: "#6e1410", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
-  el("text", Object.assign({}, common1, { fill: "#ffd60a", stroke: "#ffd60a", "stroke-width": 28, "stroke-linejoin": "round" }), title).textContent = t1;
-  el("text", Object.assign({}, common1, { fill: "#d7261e" }), title).textContent = t1; // roșu
+  // „S-A DESCHIS” cu roșu, „PIAȚA” cu verde (ca înainte); fiecare cu umbra lui
+  var parts = [
+    { text: "S-A DESCHIS ", color: "#d7261e", shadow: "#6e1410" },
+    { text: "PIAȚA",        color: "#0e6420", shadow: "#0b4a17" }
+  ];
+  function layer(attrs, colorKey, withStroke) {
+    var t = el("text", Object.assign({}, common1, attrs), title);
+    parts.forEach(function (pt) {
+      var c = colorKey ? pt[colorKey] : attrs.fill;
+      // „vector-effect” nu se moștenește, așa că îl punem pe fiecare cuvânt
+      var span = el("tspan", withStroke ? { fill: c, stroke: c, "vector-effect": "non-scaling-stroke", "stroke-width": 28 * unit } : { fill: c }, t);
+      span.textContent = pt.text;
+    });
+  }
+  layer(Object.assign({}, outline, { x: tx1 + 12, y: base1 + 14 / sy1 }), "shadow", true); // umbra
+  el("text", Object.assign({}, common1, outline, { fill: "#ffd60a", stroke: "#ffd60a" }), title).textContent = t1; // conturul galben
+  layer({}, "color", false);                                                              // literele
 
   // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
   var pill = document.getElementById("pill");
-  var py = base1 + 115, ph = (H - 92) - py, pr = 74; // sus: loc pentru virgula de sub Ț; jos: aproape de chenar
+  var py = pyFixed, ph = (H - 120) - py, pr = 70; // pastila: aceeași poziție și mărime ca înainte
   el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
   el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
   var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
   var s2 = fit(t2, f2, w - 90), m2 = metrics(t2, f2, s2);
   // dacă textul ar fi prea înalt pentru pastilă, îl micșorăm după înălțime
-  var maxCap = ph * 0.68;
+  var maxCap = ph * 0.62;
   if (m2.cap > maxCap) { s2 = s2 * maxCap / m2.cap; m2 = metrics(t2, f2, s2); }
-  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță (cel mult cu 40%)
-  var sy = Math.min(1.4, Math.max(1, maxCap / m2.cap));
+  // dacă pastila are loc pe înălțime (ex. la 1,2 m), literele se înalță ușor (cel mult 15%)
+  var sy = Math.min(1.15, Math.max(1, maxCap / m2.cap));
   el("text", { x: x0 + (w - m2.width) / 2 + m2.left, y: 0, "font-family": f2, "font-size": s2, fill: "#ffffff",
     transform: "translate(0 " + (py + ph / 2 + m2.cap * sy / 2) + ") scale(1 " + sy + ")" }, pill).textContent = t2;
 
