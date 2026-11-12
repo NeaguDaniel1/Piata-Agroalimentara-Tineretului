@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>Banner Piața Tineretului — 4200 × 1000 mm</title>
+<!--
+  Banner pentru tipar: 4,2 m × 1 m (dimensiune reală, 1:1).
+  Toate măsurile sunt în milimetri. Textele importante stau la cel puțin
+  80 mm de margine, ca să nu fie atinse de tiv sau de capse.
+  PDF-ul se generează cu scriptul genereaza.js din același folder.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Geist:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+  @page { size: 4200mm 1000mm; margin: 0; }
+  :root {
+    --green: #1e5a3c;
+    --green-dark: #16241b;
+    --cream: #f6f5f1;
+    --ink: #16201a;
+    --muted: #4f5a52;
+    --accent: #d9472b;
+    --mustard: #e9b44c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 4200mm; height: 1000mm; }
+  body { font-family: "Geist", sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .banner { position: relative; width: 4200mm; height: 1000mm; overflow: hidden; display: flex; }
+
+  /* ---------- Partea stângă: numele pieței ---------- */
+  .left {
+    position: relative; width: 2500mm; height: 100%;
+    background: var(--green); color: #fff;
+    padding: 110mm 0 0 150mm;
+  }
+  .brand { display: flex; align-items: center; gap: 60mm; }
+  .mark { width: 210mm; height: 210mm; flex: none; }
+  .mark rect { fill: #fff; }
+  .mark path { fill: none; stroke: var(--green); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .kicker { font: 500 118mm/1 "Geist", sans-serif; letter-spacing: -1mm; opacity: .82; }
+
+  .name {
+    margin-top: 40mm;
+    font: 600 455mm/0.82 "Bricolage Grotesque", sans-serif;
+    letter-spacing: -14mm;
+    margin-left: -12mm;
+  }
+
+  .cats {
+    position: absolute; left: 150mm; bottom: 95mm;
+    display: flex; align-items: center; gap: 42mm;
+    font: 500 76mm/1 "Geist", sans-serif; color: rgba(255, 255, 255, .9);
+  }
+  .cats i { width: 22mm; height: 22mm; border-radius: 50%; background: var(--mustard); display: block; }
+
+  /* ---------- Separator ---------- */
+  .stripe { width: 46mm; height: 100%; background: var(--accent); flex: none; }
+
+  /* ---------- Partea dreaptă: program și adresă ---------- */
+  .right {
+    flex: 1; height: 100%;
+    background: var(--cream); color: var(--ink);
+    padding: 102mm 150mm 0 150mm;
+    display: flex; flex-direction: column;
+  }
+  .right h2 { font: 600 170mm/1 "Bricolage Grotesque", sans-serif; letter-spacing: -5mm; margin-bottom: 40mm; }
+
+  .hours { width: 100%; border-collapse: collapse; font: 500 82mm/1 "Geist", sans-serif; }
+  .hours td { padding: 18mm 0; border-top: 2.5mm solid #d4d1c5; }
+  .hours tr:first-child td { border-top: 4mm solid var(--ink); }
+  .hours td:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .address {
+    margin-top: auto; margin-bottom: 86mm;
+    display: flex; align-items: center; gap: 30mm;
+    font: 600 78mm/1.15 "Geist", sans-serif;
+  }
+  .address svg { width: 95mm; height: 95mm; flex: none; }
+  .address small { display: block; font-weight: 400; color: var(--muted); font-size: 60mm; margin-top: 12mm; }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <section class="left">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><path d="M9 23c0-8.3 5.7-14 14-14 0 8.3-5.7 14-14 14Z"/><path d="M9 23l8-8"/></svg>
+        <p class="kicker">Piața Agroalimentară</p>
+      </div>
+      <h1 class="name">Tineretului</h1>
+      <p class="cats">Legume <i></i> Fructe <i></i> Lactate <i></i> Carne <i></i> Pâine <i></i> Flori</p>
+    </section>
+
+    <div class="stripe"></div>
+
+    <section class="right">
+      <h2>Deschis zilnic</h2>
+      <table class="hours">
+        <tr><td>Luni – Vineri</td><td>06:00 – 20:00</td></tr>
+        <tr><td>Sâmbătă</td><td>06:00 – 18:00</td></tr>
+        <tr><td>Duminică</td><td>07:00 – 14:00</td></tr>
+      </table>
+      <p class="address">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" fill="#d9472b"/><circle cx="12" cy="10" r="2.6" fill="#f6f5f1"/></svg>
+        <span>Str. Tineretului 30<small>Dudu, Chiajna · parcare gratuită</small></span>
+      </p>
+    </section>
+  </div>
+</body>
+</html>
