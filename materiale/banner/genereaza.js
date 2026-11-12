@@ -10,6 +10,8 @@ const lucrari = [
   { sursa: "banner.html?sageata=dreapta", pdf: "banner-program-sageata-dreapta-4200x1000mm.pdf", verificaMargini: true, asteapta: true },
   { sursa: "banner-deschidere-clasic.html", pdf: "banner-deschidere-clasic-sageata-stanga-4200x1000mm.pdf", asteapta: true },
   { sursa: "banner-deschidere-clasic.html?sageata=dreapta", pdf: "banner-deschidere-clasic-sageata-dreapta-4200x1000mm.pdf", asteapta: true },
+  { sursa: "banner-deschidere-clasic.html?inaltime=1200", pdf: "banner-deschidere-clasic-sageata-stanga-4200x1200mm.pdf", asteapta: true, inaltime: 1200 },
+  { sursa: "banner-deschidere-clasic.html?inaltime=1200&sageata=dreapta", pdf: "banner-deschidere-clasic-sageata-dreapta-4200x1200mm.pdf", asteapta: true, inaltime: 1200 },
   { sursa: "banner-deschidere.html", pdf: "banner-deschidere-sageata-stanga-4200x1000mm.pdf", asteapta: true },
   { sursa: "banner-deschidere.html?sageata=dreapta", pdf: "banner-deschidere-sageata-dreapta-4200x1000mm.pdf", asteapta: true },
 ];
@@ -58,7 +60,7 @@ async function verificaMargini(page) {
     await page.evaluate(() => document.fonts.ready);
     if (l.asteapta) await page.waitForFunction(() => window.__gata === true);
     if (l.verificaMargini) (await verificaMargini(page)).forEach((i) => console.warn("ATENȚIE:", i));
-    await page.pdf({ path: path.join(dir, l.pdf), width: "4200mm", height: "1000mm", printBackground: true, pageRanges: "1" });
+    await page.pdf({ path: path.join(dir, l.pdf), width: "4200mm", height: (l.inaltime || 1000) + "mm", printBackground: true, pageRanges: "1" });
     await page.close();
     console.log("Gata:", l.pdf);
   }

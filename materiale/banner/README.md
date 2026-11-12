@@ -1,8 +1,17 @@
 # Bannere Piața Tineretului — 4,2 m × 1 m
 
 ## ✅ Varianta aleasă pentru tipar
-**„S-A DESCHIS PIAȚA / AGROALIMENTARĂ TINERETULUI”, după modelul cu săgeata verde:**
+**„S-A DESCHIS PIAȚA / AGROALIMENTARĂ TINERETULUI”, după modelul cu săgeata verde.**
 
+### Dimensiunea finală: 4,2 m × 1,2 m
+| Fișier | |
+|---|---|
+| `banner-deschidere-clasic-sageata-stanga-4200x1200mm.pdf` | **De dat la tipar** — săgeata spre stânga |
+| `banner-deschidere-clasic-sageata-dreapta-4200x1200mm.pdf` | **De dat la tipar** — săgeata spre dreapta |
+| `banner-deschidere-clasic-sageata-*-4200x1200mm-100dpi.jpg` | Aceleași, ca imagine, dacă tipografia cere JPG |
+| `previzualizare-deschidere-clasic-sageata-*-1200.png` | Doar pentru vizualizare |
+
+### Varianta anterioară, 4,2 m × 1 m
 | Fișier | |
 |---|---|
 | `banner-deschidere-clasic-sageata-stanga-4200x1000mm.pdf` | **De dat la tipar** — săgeata spre stânga |
@@ -40,7 +49,7 @@ Alege varianta în care săgeata arată spre intrarea în piață, din locul und
 Înainte de tipar, verifică **programul**: e trecut pe fiecare zi (Luni–Vineri 06–20, Sâmbătă 06–18, Duminică 07–14), ca pe site.
 
 ## De spus la tipografie
-- Dimensiune finală: **4200 × 1000 mm**, fișier 1:1.
+- Dimensiune finală: **4200 × 1200 mm** (varianta aleasă), fișier 1:1.
 - Textele sunt departe de margine, deci se pot pune **capse** și **tiv** fără să atingă nimic.
 - Culorile sunt în RGB; tipografia le convertește în CMYK.
 - Material recomandat: **frontlit 440–510 g/m²** pentru exterior, cu tiv și capse la ~50 cm.

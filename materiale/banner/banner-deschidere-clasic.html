@@ -2,9 +2,10 @@
 <html lang="ro">
 <head>
 <meta charset="utf-8">
-<title>Banner deschidere — 4200 × 1000 mm</title>
+<title>Banner deschidere — 4200 × 1000 / 1200 mm</title>
 <!--
-  Banner „S-a deschis piața”, 4,2 m × 1 m, la dimensiune reală (1 unitate = 1 mm).
+  Banner „S-a deschis piața”, 4,2 m lungime, la dimensiune reală (1 unitate = 1 mm).
+  Înălțimea implicită e 1 m; cu ?inaltime=1200 devine 1,2 m (săgeata crește, pastila e mai înaltă).
   Săgeata e implicit în stânga; cu ?sageata=dreapta în adresă se mută în dreapta.
   Dimensiunea textelor se calculează automat ca să umple exact spațiul.
   PDF-ul se generează cu: node materiale/banner/genereaza.js
@@ -33,8 +34,8 @@
   </defs>
 
   <!-- fundal și chenar -->
-  <rect width="4200" height="1000" fill="#ffffff"/>
-  <rect x="48" y="48" width="4104" height="904" fill="none" stroke="#0e6420" stroke-width="30"/>
+  <rect id="bg" width="4200" height="1000" fill="#ffffff"/>
+  <rect id="frame" x="48" y="48" width="4104" height="904" fill="none" stroke="#0e6420" stroke-width="30"/>
 
   <!-- săgeata + liniuțele decorative (se oglindesc pentru varianta dreapta) -->
   <g id="arrowSide">
@@ -42,14 +43,18 @@
       <path id="arrowPath" d="M160 500 L660 125 L660 330 L1010 330 L1010 670 L660 670 L660 875 Z"/>
     </g>
     <g stroke-linecap="round" fill="none">
+      <g id="leftTop">
       <!-- stânga sus -->
       <line x1="150" y1="175" x2="330" y2="275" stroke="#ffd60a" stroke-width="30"/>
       <line x1="120" y1="290" x2="300" y2="330" stroke="#139a29" stroke-width="30"/>
       <line x1="230" y1="125" x2="380" y2="215" stroke="#139a29" stroke-width="22"/>
+      </g>
+      <g id="leftBottom">
       <!-- stânga jos -->
       <line x1="150" y1="825" x2="330" y2="725" stroke="#ffd60a" stroke-width="30"/>
       <line x1="120" y1="710" x2="300" y2="670" stroke="#139a29" stroke-width="30"/>
       <line x1="230" y1="875" x2="380" y2="785" stroke="#139a29" stroke-width="22"/>
+      </g>
     </g>
   </g>
 
@@ -58,10 +63,12 @@
     <line x1="4060" y1="130" x2="3955" y2="235" stroke="#ffd60a" stroke-width="30"/>
     <line x1="4085" y1="275" x2="3965" y2="320" stroke="#139a29" stroke-width="28"/>
     <line x1="3960" y1="120" x2="3905" y2="185" stroke="#139a29" stroke-width="20"/>
+    <g id="farBottom">
     <!-- dreapta jos -->
     <line x1="4060" y1="870" x2="3955" y2="765" stroke="#ffd60a" stroke-width="30"/>
     <line x1="4085" y1="725" x2="3965" y2="680" stroke="#139a29" stroke-width="28"/>
     <line x1="3960" y1="880" x2="3905" y2="815" stroke="#139a29" stroke-width="20"/>
+    </g>
   </g>
 
   <!-- textul -->
@@ -76,7 +83,24 @@
   await document.fonts.ready;
 
   var NS = "http://www.w3.org/2000/svg";
-  var right = new URLSearchParams(location.search).get("sageata") === "dreapta";
+  var q = new URLSearchParams(location.search);
+  var right = q.get("sageata") === "dreapta";
+  // Înălțimea bannerului (mm): 1000 implicit, sau ce vine din ?inaltime=
+  var H = parseInt(q.get("inaltime") || "1000", 10), extra = H - 1000;
+  ["html", "body", "svg"].forEach(function (s) { document.querySelector(s).style.height = H + "mm"; });
+  // mărimea paginii PDF trebuie să urmeze și ea înălțimea aleasă
+  var pageStyle = document.createElement("style");
+  pageStyle.textContent = "@page { size: 4200mm " + H + "mm; margin: 0; }";
+  document.head.appendChild(pageStyle);
+  var svg = document.getElementById("b");
+  svg.setAttribute("viewBox", "0 0 4200 " + H);
+  document.getElementById("bg").setAttribute("height", H);
+  document.getElementById("frame").setAttribute("height", H - 96);
+  // liniuțele de jos coboară în colțurile de jos
+  document.getElementById("leftBottom").setAttribute("transform", "translate(0 " + extra + ")");
+  document.getElementById("farBottom").setAttribute("transform", "translate(0 " + extra + ")");
+  // săgeata rămâne centrată pe înălțime și crește puțin (12% la 1,2 m), cu vârful pe loc
+  var k = 1 + 0.6 * extra / 1000;
   function el(name, attrs, parent) {
     var e = document.createElementNS(NS, name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -104,10 +128,12 @@
   el("path", { d: p, fill: "none", stroke: "#ffffff", "stroke-width": 30, "stroke-linejoin": "round" }, arrow);
   el("path", { d: p, fill: "url(#arrowFill)", stroke: "#0b5a1c", "stroke-width": 4, "stroke-linejoin": "round" }, arrow);
   el("path", { d: "M300 500 L640 245 L640 360", fill: "none", stroke: "rgba(255,255,255,.35)", "stroke-width": 14, "stroke-linecap": "round", "stroke-linejoin": "round" }, arrow);
+  arrow.setAttribute("transform", "translate(0 " + extra / 2 + ") translate(160 500) scale(" + k + ") translate(-160 -500)");
 
   // Zona pentru text (între săgeată și liniuțele din capăt)
   // în varianta „dreapta” zona e oglindită exact
-  var x0 = right ? 4200 - 3850 : 1110, x1 = right ? 4200 - 1110 : 3850;
+  var start = 1110 + (k - 1) * (1010 - 160); // textul începe după săgeată
+  var x0 = right ? 4200 - 3850 : start, x1 = right ? 4200 - start : 3850;
   if (right) {
     document.getElementById("arrowSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
     document.getElementById("farSide").setAttribute("transform", "translate(4200 0) scale(-1 1)");
@@ -118,7 +144,7 @@
   var t1 = "S-A DESCHIS PIAȚA", f1 = "Paytone One";
   var sp1 = 0.07; // spațiu între litere (din mărimea fontului), ca să nu se lipească literele cu contur
   var s1 = fit(t1, f1, w - 40, sp1), m1 = metrics(t1, f1, s1, sp1);
-  var base1 = 120 + m1.cap + 40;
+  var base1 = 160 + extra * 0.35 + m1.cap;
   var tx1 = x0 + 20 + m1.left;
   var title = document.getElementById("title");
   var common1 = { x: tx1, y: base1, "font-family": f1, "font-size": s1, "letter-spacing": s1 * sp1 };
@@ -128,7 +154,7 @@
 
   // Rândul 2: pastila verde cu „AGROALIMENTARĂ TINERETULUI”
   var pill = document.getElementById("pill");
-  var py = base1 + 120, ph = 880 - py, pr = 70; // loc pentru virgula de sub Ț
+  var py = base1 + 120, ph = (H - 120) - py, pr = 70; // loc pentru virgula de sub Ț
   el("rect", { x: x0 + 14, y: py + 18, width: w, height: ph, rx: pr, fill: "#0b4a17" }, pill);
   el("rect", { x: x0, y: py, width: w, height: ph, rx: pr, fill: "url(#pillFill)", stroke: "#ffd60a", "stroke-width": 22 }, pill);
   var t2 = "AGROALIMENTARĂ TINERETULUI", f2 = "Anton";
